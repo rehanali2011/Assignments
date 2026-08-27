@@ -1,0 +1,334 @@
+===> HTML
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Logic Assignment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <p class="tag">JAVASCRIPT ASSIGNMENT</p>
+            <h1>Logic Practice</h1>
+            <p class="subtitle">Maximum • Minimum • Random Password • Ramadan</p>
+        </div>
+    </header>
+
+    <main class="container grid">
+        <section class="card">
+            <div class="number">01</div>
+            <h2>Maximum Number</h2>
+            <p>Enter three numbers and find the largest number.</p>
+            <div class="inputs"><input id="max1" type="number" placeholder="Number 1"><input id="max2" type="number"
+                    placeholder="Number 2"><input id="max3" type="number" placeholder="Number 3"></div>
+            <button onclick="findMaximum()">Find Maximum</button>
+            <div class="result" id="maxResult">Result will appear here.</div>
+        </section>
+
+        <section class="card">
+            <div class="number">02</div>
+            <h2>Minimum Number</h2>
+            <p>Enter three numbers and find the smallest number.</p>
+            <div class="inputs"><input id="min1" type="number" placeholder="Number 1"><input id="min2" type="number"
+                    placeholder="Number 2"><input id="min3" type="number" placeholder="Number 3"></div>
+            <button onclick="findMinimum()">Find Minimum</button>
+            <div class="result" id="minResult">Result will appear here.</div>
+        </section>
+
+        <section class="card">
+            <div class="number">03</div>
+            <h2>Random Password</h2>
+            <p>Generate a random password using letters, numbers and symbols.</p>
+            <div class="password-row"><input id="password" readonly placeholder="Your password"><button class="copy"
+                    onclick="copyPassword()">Copy</button></div>
+            <label class="range-label">Password Length: <strong id="lengthValue">12</strong></label>
+            <input class="range" id="passwordLength" type="range" min="6" max="30" value="12" oninput="updateLength()">
+            <button onclick="generatePassword()">Generate Password</button>
+            <div class="result" id="passwordResult">Click generate to create a password.</div>
+        </section>
+
+        <section class="card">
+            <div class="number">04</div>
+            <h2>Ramadan Logic</h2>
+            <p>Enter a date and check whether it falls within the Ramadan 2026 demo period.</p>
+            <input id="ramadanDate" type="date"><button onclick="checkRamadan()">Check Ramadan</button>
+            <div class="result" id="ramadanResult">Select a date and check.</div>
+            <p class="note">Demo dates: February 18 – March 19, 2026. Actual Ramadan dates can vary with moon sighting.
+            </p>
+        </section>
+    </main>
+    <footer>JavaScript Logic Assignment • HTML + CSS + JavaScript</footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+====> CSS
+
+* {
+    box-sizing: border-box
+}
+
+:root {
+    --green: #16803c;
+    --bg: #f4f7f4;
+    --border: #dfe7e1;
+    --muted: #657069
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: #1e2922
+}
+
+header {
+    background: linear-gradient(135deg, #102519, #236b3d);
+    color: #fff;
+    padding: 60px 0 70px
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: auto
+}
+
+.tag {
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #a8e5bc;
+    margin: 0 0 10px
+}
+
+h1 {
+    font-size: 52px;
+    line-height: 1;
+    margin: 0 0 12px;
+    letter-spacing: -2px
+}
+
+.subtitle {
+    margin: 0;
+    color: #d7e9dc
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: -35px;
+    padding-bottom: 50px
+}
+
+.card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 10px 30px #1535210d
+}
+
+.number {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--green);
+    letter-spacing: 1px;
+    margin-bottom: 13px
+}
+
+h2 {
+    margin: 0 0 8px;
+    font-size: 24px
+}
+
+.card p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6
+}
+
+.inputs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin: 22px 0 12px
+}
+
+input {
+    font: inherit;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #aebbb2;
+    border-radius: 7px;
+    outline: none;
+    background: #fff
+}
+
+input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px #16803c18
+}
+
+button {
+    border: 0;
+    background: var(--green);
+    color: #fff;
+    border-radius: 7px;
+    padding: 12px 17px;
+    font-weight: bold;
+    cursor: pointer
+}
+
+button:hover {
+    background: #0e6630
+}
+
+.result {
+    margin-top: 13px;
+    background: #f0f7f1;
+    border: 1px solid #d8e9db;
+    border-radius: 7px;
+    padding: 12px;
+    font-size: 14px;
+    min-height: 44px
+}
+
+.password-row {
+    display: flex;
+    gap: 8px;
+    margin: 20px 0 14px
+}
+
+.password-row input {
+    font-family: monospace
+}
+
+.copy {
+    background: #26352c;
+    min-width: 75px
+}
+
+.range-label {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin: 12px 0 6px
+}
+
+.range {
+    padding: 0;
+    border: 0;
+    accent-color: var(--green);
+    margin-bottom: 17px
+}
+
+.card>input {
+    margin: 20px 0 12px
+}
+
+.note {
+    font-size: 11px !important;
+    color: #7b837e !important
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+    font-size: 12px;
+    border-top: 1px solid var(--border)
+}
+
+@media(max-width:700px) {
+    header {
+        padding: 45px 0 60px
+    }
+
+    h1 {
+        font-size: 42px
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        margin-top: -25px
+    }
+
+    .inputs {
+        grid-template-columns: 1fr
+    }
+
+    .card {
+        padding: 22px
+    }
+}
+
+====> SCRIPT.JS
+
+// 1. Maximum Number Logic
+function findMaximum() {
+  const a = Number(document.getElementById('max1').value);
+  const b = Number(document.getElementById('max2').value);
+  const c = Number(document.getElementById('max3').value);
+  if ([a, b, c].some(Number.isNaN)) { document.getElementById('maxResult').textContent = 'Please enter all three numbers.'; return; }
+  let max = a;
+  if (b > max) max = b;
+  if (c > max) max = c;
+  document.getElementById('maxResult').textContent = 'Maximum number is: ' + max;
+}
+
+// 2. Minimum Number Logic
+function findMinimum() {
+  const a = Number(document.getElementById('min1').value);
+  const b = Number(document.getElementById('min2').value);
+  const c = Number(document.getElementById('min3').value);
+  if ([a, b, c].some(Number.isNaN)) { document.getElementById('minResult').textContent = 'Please enter all three numbers.'; return; }
+  let min = a;
+  if (b < min) min = b;
+  if (c < min) min = c;
+  document.getElementById('minResult').textContent = 'Minimum number is: ' + min;
+}
+
+// 3. Random Password Generate
+const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+function generatePassword() {
+  const length = Number(document.getElementById('passwordLength').value);
+  let password = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    password += characters[randomIndex];
+  }
+  document.getElementById('password').value = password;
+  document.getElementById('passwordResult').textContent = 'Password generated successfully.';
+}
+function updateLength() {
+  document.getElementById('lengthValue').textContent = document.getElementById('passwordLength').value;
+}
+function copyPassword() {
+  const password = document.getElementById('password').value;
+  if (!password) { document.getElementById('passwordResult').textContent = 'Generate a password first.'; return; }
+  navigator.clipboard.writeText(password).then(() => {
+    document.getElementById('passwordResult').textContent = 'Password copied to clipboard.';
+  });
+}
+
+// 4. Ramadan Logic
+function checkRamadan() {
+  const input = document.getElementById('ramadanDate').value;
+  const result = document.getElementById('ramadanResult');
+  if (!input) { result.textContent = 'Please select a date.'; return; }
+  const selected = new Date(input + 'T00:00:00');
+  const start = new Date('2026-02-18T00:00:00');
+  const end = new Date('2026-03-19T00:00:00');
+  if (selected >= start && selected <= end) {
+    result.textContent = 'Yes — this date is within the Ramadan 2026 demo period.';
+  } else {
+    result.textContent = 'No — this date is outside the Ramadan 2026 demo period.';
+  }
+}
