@@ -1,0 +1,823 @@
+===> HTML
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salt'n Pepper Restaurants</title>
+  <meta name="description" content="Salt'n Pepper Restaurants — Pakistani restaurant and franchise website.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#home">
+          <span class="logo-mark">S</span><span class="brand-text">Salt'n<br><b>Pepper</b></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="#publications">Publications</a></li>
+            <li class="nav-item"><a class="nav-link" href="#franchise">Get a Franchise</a></li>
+            <li class="nav-item"><a class="nav-link" href="#feedback">Feedback</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact us</a></li>
+            <li class="nav-item ms-lg-2"><a class="btn btn-outline-light rounded-pill px-4" href="#order">Order Now</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container position-relative">
+        <div class="row align-items-center min-vh-75">
+          <div class="col-lg-7 py-5">
+            <span class="eyebrow">WELCOME TO</span>
+            <h1>Salt'n Pepper <span>Restaurants</span></h1>
+            <p class="lead">The ultimate dining destination for unforgettable meals, gracious service and extraordinary
+              Pakistani cuisine.</p>
+            <div class="d-flex flex-wrap gap-3 mt-4">
+              <a href="#brands" class="btn btn-danger rounded-pill px-4 py-3">Explore Our Brands</a>
+              <a href="#franchise" class="btn btn-outline-light rounded-pill px-4 py-3">Get a Franchise</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-dark py-5" id="brands">
+      <div class="container py-lg-4">
+        <div class="section-heading text-center mb-5">
+          <span class="eyebrow">OUR BRANDS</span>
+          <h2>Welcome to Salt'n Pepper Restaurants!</h2>
+          <p>Please explore our brands for further information, reservations or to order online.</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+          <div class="col-sm-6 col-lg-4">
+            <div class="brand-card">
+              <div class="brand-image image-restaurant"><span>RESTAURANT</span></div>
+              <h3>Salt'n Pepper Restaurant</h3>
+              <p>Classic and contemporary cuisine served with outstanding hospitality.</p>
+              <a href="#order" class="btn btn-outline-light rounded-pill">Order Now</a>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="brand-card">
+              <div class="brand-image image-express"><span>EXPRESS</span></div>
+              <h3>Salt'n Pepper Express</h3>
+              <p>Fast, flavorful favorites for busy days and casual gatherings.</p>
+              <a href="#order" class="btn btn-outline-light rounded-pill">Order Now</a>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="brand-card">
+              <div class="brand-image image-village"><span>VILLAGE</span></div>
+              <h3>Salt'n Pepper Village</h3>
+              <p>A vibrant dining experience celebrating Pakistani flavors and culture.</p>
+              <a href="#franchise" class="btn btn-outline-light rounded-pill">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="franchise-section py-5" id="franchise">
+      <div class="container py-lg-5">
+        <div class="section-heading text-center mb-5">
+          <span class="eyebrow">EXPANSION</span>
+          <h2>Salt'n Pepper Restaurant Franchises</h2>
+          <p>Each franchise is individually managed. Explore our growing network of locations.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <article class="location-card">
+              <div class="location-photo photo-faisalabad"></div>
+              <div class="location-body"><span class="city">FAISALABAD</span>
+                <h3>Salt'n Pepper Restaurant</h3>
+                <p>4-Kohinoor City, Faisalabad</p>
+                <p>Ph: 041-8711404</p><a href="#" class="btn btn-dark rounded-pill">Get Directions ↗</a>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="location-card">
+              <div class="location-photo photo-bahawalpur"></div>
+              <div class="location-body"><span class="city">BAHAWALPUR</span>
+                <h3>Salt'n Pepper Restaurant</h3>
+                <p>D.C Chowk, opposite Commissioner House, Bahawalpur</p>
+                <p>Ph: 062-2740271-2</p><a href="#" class="btn btn-dark rounded-pill">Get Directions ↗</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="express-section py-5" id="publications">
+      <div class="container py-lg-5">
+        <div class="section-heading text-center mb-5">
+          <span class="eyebrow">EXPRESS FRANCHISES</span>
+          <h2>Our Express Locations</h2>
+          <p>Find a Salt'n Pepper Express near you.</p>
+        </div>
+        <div class="row g-3">
+          <div class="col-6 col-lg-3">
+            <div class="express-card"><span>LAHORE</span>
+              <h4>DHA</h4>
+              <p>93-Y Phase III, DHA</p><small>042-111-100-678</small>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="express-card"><span>LAHORE</span>
+              <h4>Bahria Town</h4>
+              <p>Arwa Heights Building 19</p><small>042-111-100-678</small>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="express-card"><span>JHELUM</span>
+              <h4>City Housing</h4>
+              <p>Opposite Dancing Fountain</p><small>0307-7675555</small>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="express-card"><span>GUJRAT</span>
+              <h4>Service Mor</h4>
+              <p>Service Mor, Gujrat</p><small>0311-1124600</small>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="express-card"><span>SAHIWAL</span>
+              <h4>Police Line</h4>
+              <p>Opposite Main Gate</p><small>040-4515485</small>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="express-card"><span>BURWALA</span>
+              <h4>Empire Mall</h4>
+              <p>Canal Road</p><small>067-3205644</small>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="express-card"><span>SARGODHA</span>
+              <h4>Babar Road</h4>
+              <p>Arts Council</p><small>048-3725500</small>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="express-card"><span>GUJRANWALA</span>
+              <h4>Village</h4>
+              <p>GT Road Gujranwala Cantt</p><small>055-3884500</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section py-5" id="about">
+      <div class="container py-lg-5">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <div class="about-image"></div>
+          </div>
+          <div class="col-lg-6">
+            <span class="eyebrow">OUR STORY</span>
+            <h2>About Salt'n Pepper</h2>
+            <p>Salt'n Pepper Restaurants are an example of gracious dining, outstanding service and extraordinary
+              classic and contemporary cuisine.</p>
+            <p>From family occasions to business dinners and special moments, our restaurants are designed to create
+              unforgettable memories through great food and warm hospitality.</p>
+            <a href="#contact" class="btn btn-danger rounded-pill px-4">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="order-section py-5" id="order">
+      <div class="container py-lg-4">
+        <div class="order-box">
+          <div><span class="eyebrow">ONLINE ORDERING</span>
+            <h2>Craving something delicious?</h2>
+            <p>Choose your nearest branch and place your order for pickup or delivery.</p>
+          </div>
+          <div class="d-flex flex-wrap gap-2"><a href="#" class="btn btn-danger rounded-pill px-4">Start My Order</a><a
+              href="#" class="btn btn-outline-light rounded-pill px-4">Find a Branch</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feedback-section py-5" id="feedback">
+      <div class="container py-lg-4">
+        <div class="section-heading text-center mb-4"><span class="eyebrow">FEEDBACK</span>
+          <h2>We'd love to hear from you</h2>
+          <p>Share your experience and help us serve you better.</p>
+        </div>
+        <form id="feedbackForm" class="feedback-form mx-auto">
+          <div class="row g-3">
+            <div class="col-md-6"><input class="form-control" required placeholder="Full Name"></div>
+            <div class="col-md-6"><input class="form-control" type="email" required placeholder="Email Address"></div>
+            <div class="col-12"><textarea class="form-control" rows="5" required placeholder="Your feedback"></textarea>
+            </div>
+            <div class="col-12 text-center"><button class="btn btn-dark rounded-pill px-5">Submit Feedback</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container py-5">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="footer-brand">Salt'n Pepper</div>
+          <p>Pakistan's favorite dining destinations, bringing memorable food and hospitality to communities across the
+            country.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>Site Links</h5><a href="#home">Home</a><a href="#about">About Us</a><a
+            href="#publications">Publications</a><a href="#franchise">Get a Franchise</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>Contact</h5>
+          <p>23-Usman Block,<br>New Garden Town,<br>Lahore, Pakistan</p>
+          <p>+92 42 358 509 31</p>
+        </div>
+        <div class="col-lg-3">
+          <h5>Order & Connect</h5>
+          <p>Free delivery</p>
+          <p>+92 42 111 100 678</p>
+          <div class="socials"><a href="#">f</a><a href="#">◎</a><a href="#">in</a></div>
+        </div>
+      </div>
+      <hr>
+      <div class="d-flex flex-wrap justify-content-between gap-2 small"><span>© 2026 Salt'n Pepper Restaurant.
+          Educational recreation.</span><span>Terms & Conditions · Privacy Policy</span></div>
+    </div>
+  </footer>
+
+  <button id="topBtn" class="top-btn">↑</button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
+
+====> CSS
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --red: #e31e24;
+    --black: #111;
+    --soft: #f7f5f1;
+    --gray: #777
+}
+
+* {
+    box-sizing: border-box
+}
+
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    margin: 0;
+    font-family: Poppins, Arial, sans-serif;
+    color: #202020;
+    background: #fff
+}
+
+.site-header {
+    background: #050505;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #292929
+}
+
+.navbar {
+    min-height: 82px
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff
+}
+
+.logo-mark {
+    width: 48px;
+    height: 48px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: Georgia;
+    font-size: 29px
+}
+
+.brand-text {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    line-height: .9;
+    letter-spacing: .5px
+}
+
+.brand-text b {
+    font-size: 18px
+}
+
+.nav-link {
+    color: #ddd !important;
+    font-size: 13px;
+    padding: 10px 12px !important
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #fff !important
+}
+
+.btn-danger {
+    background: var(--red);
+    border-color: var(--red)
+}
+
+.btn-danger:hover {
+    background: #bd1117;
+    border-color: #bd1117
+}
+
+.hero {
+    position: relative;
+    min-height: 78vh;
+    background: url("https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1800&q=85") center/cover no-repeat;
+    display: flex;
+    align-items: center
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .85), rgba(0, 0, 0, .38), rgba(0, 0, 0, .25))
+}
+
+.min-vh-75 {
+    min-height: 78vh
+}
+
+.eyebrow {
+    display: inline-block;
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    margin-bottom: 12px
+}
+
+.hero .eyebrow {
+    color: #fff
+}
+
+.hero h1 {
+    font-family: "Playfair Display", serif;
+    color: #fff;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1.02;
+    margin: 0
+}
+
+.hero h1 span {
+    display: block;
+    color: #f1f1f1;
+    font-size: .62em;
+    margin-top: 10px
+}
+
+.hero .lead {
+    color: #ddd;
+    max-width: 650px;
+    font-size: 17px;
+    margin-top: 24px
+}
+
+.section-dark {
+    background: #080808;
+    color: #fff
+}
+
+.section-heading h2,
+.about-section h2,
+.order-box h2 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(34px, 4vw, 52px);
+    margin: 0 0 12px
+}
+
+.section-heading p {
+    color: #999;
+    max-width: 680px;
+    margin: 0 auto
+}
+
+.brand-card {
+    height: 100%;
+    background: #151515;
+    border: 1px solid #2d2d2d;
+    border-radius: 6px;
+    padding: 18px;
+    text-align: center
+}
+
+.brand-card h3 {
+    font-family: "Playfair Display", serif;
+    margin: 22px 0 8px
+}
+
+.brand-card p {
+    color: #999;
+    font-size: 13px;
+    min-height: 45px
+}
+
+.brand-image {
+    height: 190px;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden
+}
+
+.brand-image:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #0006
+}
+
+.brand-image span {
+    position: relative;
+    color: #fff;
+    font-family: Georgia;
+    font-size: 28px;
+    letter-spacing: 3px
+}
+
+.image-restaurant {
+    background-image: url("https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=900&q=80")
+}
+
+.image-express {
+    background-image: url("https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=80")
+}
+
+.image-village {
+    background-image: url("https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80")
+}
+
+.franchise-section {
+    background: #fff
+}
+
+.location-card {
+    border: 1px solid #e7e2dc;
+    background: #fff;
+    box-shadow: 0 8px 30px #0000000d;
+    border-radius: 7px;
+    overflow: hidden;
+    height: 100%
+}
+
+.location-photo {
+    height: 230px;
+    background-size: cover;
+    background-position: center
+}
+
+.photo-faisalabad {
+    background-image: url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80")
+}
+
+.photo-bahawalpur {
+    background-image: url("https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=80")
+}
+
+.location-body {
+    padding: 25px
+}
+
+.city {
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px
+}
+
+.location-body h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+    margin: 7px 0 14px
+}
+
+.location-body p {
+    font-size: 13px;
+    color: #777;
+    margin: 5px 0
+}
+
+.express-section {
+    background: var(--soft)
+}
+
+.express-card {
+    background: #fff;
+    border: 1px solid #e5e0da;
+    padding: 23px;
+    height: 100%;
+    min-height: 165px;
+    transition: .25s
+}
+
+.express-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px #00000010
+}
+
+.express-card span {
+    color: var(--red);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px
+}
+
+.express-card h4 {
+    font-family: "Playfair Display", serif;
+    margin: 9px 0 5px;
+    font-size: 23px
+}
+
+.express-card p,
+.express-card small {
+    color: #777;
+    font-size: 11px
+}
+
+.about-section {
+    background: #fff
+}
+
+.about-image {
+    min-height: 430px;
+    border-radius: 5px;
+    background: url("https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1100&q=85") center/cover;
+    box-shadow: 20px 20px 0 #111
+}
+
+.about-section p {
+    color: #777;
+    line-height: 1.9;
+    font-size: 14px
+}
+
+.order-section {
+    background: #0a0a0a
+}
+
+.order-box {
+    border: 1px solid #333;
+    padding: 45px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    color: #fff
+}
+
+.order-box p {
+    color: #aaa
+}
+
+.order-box h2 {
+    font-size: 42px
+}
+
+.feedback-section {
+    background: var(--soft)
+}
+
+.feedback-form {
+    max-width: 850px;
+    background: #fff;
+    padding: 30px;
+    border: 1px solid #e5e1db;
+    border-radius: 6px
+}
+
+.form-control {
+    padding: 13px;
+    border-color: #ddd
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 .2rem #e31e2420;
+    border-color: var(--red)
+}
+
+.footer {
+    background: #080808;
+    color: #aaa
+}
+
+.footer-brand {
+    font-family: "Playfair Display", serif;
+    color: #fff;
+    font-size: 31px;
+    margin-bottom: 13px
+}
+
+.footer h5 {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 15px
+}
+
+.footer a {
+    display: block;
+    color: #999;
+    font-size: 12px;
+    margin: 8px 0
+}
+
+.footer a:hover {
+    color: #fff
+}
+
+.footer p {
+    font-size: 12px;
+    line-height: 1.7
+}
+
+.footer hr {
+    border-color: #333;
+    margin: 35px 0
+}
+
+.socials {
+    display: flex;
+    gap: 8px
+}
+
+.socials a {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #555;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    margin: 0
+}
+
+.top-btn {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+    font-size: 20px;
+    display: none;
+    z-index: 999
+}
+
+.top-btn.show {
+    display: block
+}
+
+@media(max-width:991px) {
+    .navbar-collapse {
+        padding: 15px 0
+    }
+
+    .nav-link {
+        padding: 9px 0 !important
+    }
+
+    .hero {
+        min-height: 72vh
+    }
+
+    .min-vh-75 {
+        min-height: 72vh
+    }
+
+    .order-box {
+        flex-direction: column;
+        align-items: flex-start
+    }
+
+    .about-image {
+        box-shadow: 10px 10px 0 #111
+    }
+}
+
+@media(max-width:575px) {
+    .navbar {
+        min-height: 70px
+    }
+
+    .hero h1 {
+        font-size: 48px
+    }
+
+    .hero .lead {
+        font-size: 14px
+    }
+
+    .brand-image {
+        height: 165px
+    }
+
+    .location-photo {
+        height: 190px
+    }
+
+    .about-image {
+        min-height: 300px
+    }
+
+    .order-box {
+        padding: 30px 24px
+    }
+
+    .order-box h2 {
+        font-size: 34px
+    }
+
+    .footer .col-6 {
+        margin-bottom: 10px
+    }
+}
+
+
+===> JAVA SCRIPT
+
+document.addEventListener("DOMContentLoaded", () => {
+  const topBtn = document.getElementById("topBtn");
+
+  window.addEventListener("scroll", () => {
+    topBtn.classList.toggle("show", window.scrollY > 450);
+  });
+
+  topBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  const feedbackForm = document.getElementById("feedbackForm");
+  feedbackForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    alert("Thank you! Your feedback has been submitted.");
+    feedbackForm.reset();
+  });
+
+  document.querySelectorAll('a[href="#"]').forEach(link => {
+    link.addEventListener("click", e => e.preventDefault());
+  });
+
+  const sections = document.querySelectorAll("main section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  window.addEventListener("scroll", () => {
+    let current = "home";
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 120) current = section.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+    });
+  });
+});
