@@ -1,0 +1,349 @@
+===> HTML
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Form & Card Assignment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Part 1: Facebook Signup Form -->
+    <div class="container">
+        <h2>Facebook Sign Up</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter full name">
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Email or Mobile</label>
+                <input type="text" id="contact" placeholder="Enter email or mobile">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Minimum 6 characters">
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="Must be 18 or above">
+            </div>
+
+            <button type="submit">Sign Up</button>
+            <div id="formMsg" class="message"></div>
+        </form>
+    </div>
+
+    <!-- Part 2: Facebook Card with Expand / See More -->
+    <div class="card">
+        <div class="card-header">
+            <div class="avatar">R</div>
+            <div class="user-info">
+                <h4>Rehan Ali</h4>
+                <span>2 hrs ago · 🌎</span>
+            </div>
+        </div>
+
+        <div class="card-content">
+            This is the short visible text of the Facebook post.
+            <span class="more-text" id="moreText">
+                Here is the expanded full content of the post! This section becomes visible when you click on the "See
+                More" button and collapses when you click "See Less".
+            </span>
+            <br>
+            <button type="button" class="see-more-btn" id="expandBtn">See More</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+====> CSS
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    margin-top: 0;
+    color: #1877f2;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1877f2;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #166fe5;
+}
+
+/* Card Styling */
+.card {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #1877f2;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.user-info h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.user-info span {
+    font-size: 12px;
+    color: gray;
+}
+
+.card-content {
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.more-text {
+    display: none;
+}
+
+.see-more-btn {
+    color: #1877f2;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    cursor: pointer;
+    width: auto;
+    margin-top: 5px;
+}
+
+.see-more-btn:hover {
+    text-decoration: underline;
+    background: none;
+}
+
+.message {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+}
+
+===> JAVA SCRIPT
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    margin-top: 0;
+    color: #1877f2;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1877f2;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #166fe5;
+}
+
+/* Card Styling */
+.card {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #1877f2;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.user-info h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.user-info span {
+    font-size: 12px;
+    color: gray;
+}
+
+.card-content {
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.more-text {
+    display: none;
+}
+
+.see-more-btn {
+    color: #1877f2;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    cursor: pointer;
+    width: auto;
+    margin-top: 5px;
+}
+
+.see-more-btn:hover {
+    text-decoration: underline;
+    background: none;
+}
+
+.message {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+}
