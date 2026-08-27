@@ -1,0 +1,968 @@
+===> HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container nav">
+
+            <div class="logo">
+                <span>Food Menu</span> 
+            </div>
+
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search food..."
+                >
+                <button id="searchBtn">Search</button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Delicious Food Menu</h1>
+            <p>Explore delicious recipes from different cuisines</p>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <main class="container menu-section">
+
+        <div class="section-heading">
+            <h2>Our Menu</h2>
+            <p id="resultText">Loading delicious food...</p>
+        </div>
+
+        <!-- Loading -->
+        <div id="loader" class="loader">
+            <div class="spinner"></div>
+            <p>Loading food...</p>
+        </div>
+
+        <!-- Error -->
+        <div id="errorMessage" class="error-message"></div>
+
+        <!-- Food Cards -->
+        <div id="foodContainer" class="food-grid"></div>
+
+    </main>
+
+    <!-- Modal -->
+    <div id="foodModal" class="modal">
+
+        <div class="modal-content">
+
+            <button id="closeModal" class="close-btn">
+                ×
+            </button>
+
+            <img id="modalImage" src="" alt="Food">
+
+            <div class="modal-body">
+
+                <h2 id="modalTitle"></h2>
+
+                <div class="modal-info">
+                    <span id="modalRating"></span>
+                    <span id="modalCuisine"></span>
+                    <span id="modalDifficulty"></span>
+                </div>
+
+                <p id="modalDescription"></p>
+
+                <h3>Ingredients</h3>
+
+                <ul id="modalIngredients"></ul>
+
+                <div class="extra-info">
+
+                    <div>
+                        <strong>Prep</strong>
+                        <span id="modalPrep"></span>
+                    </div>
+
+                    <div>
+                        <strong>Cook</strong>
+                        <span id="modalCook"></span>
+                    </div>
+
+                    <div>
+                        <strong>Servings</strong>
+                        <span id="modalServings"></span>
+                    </div>
+
+                    <div>
+                        <strong>Calories</strong>
+                        <span id="modalCalories"></span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+====> CSS
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #c5d5c5
+    /* color: black; */
+}
+.main heading{
+    text-color: black
+}
+
+
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Header */
+
+.header {
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav {
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #000000;
+    white-space: nowrap;
+}
+
+.logo span {
+    font-size: 28px;
+}
+
+/* Search */
+
+.search-box {
+    display: flex;
+    width: 420px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #ddd;
+    border-right: none;
+    outline: none;
+    border-radius: 8px 0 0 8px;
+    font-size: 15px;
+}
+
+.search-box button {
+    padding: 0 20px;
+    border: none;
+    background: #e63946;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 8px 8px 0;
+    font-weight: bold;
+}
+
+.search-box button:hover {
+    background: #c92f3b;
+}
+
+/* Hero */
+
+.hero {
+    background: linear-gradient(
+        135deg,
+        #b60e89
+        #000000
+    );
+
+    color: rgb(0, 0, 0);
+    padding: 70px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: 0.95;
+}
+
+/* Menu */
+
+.menu-section {
+    padding: 45px 0;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.section-heading p {
+    color: #777;
+}
+
+/* Food Grid */
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.food-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+    transition: 0.3s ease;
+}
+
+.food-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.13);
+}
+
+.food-image {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+}
+
+.food-body {
+    padding: 17px;
+}
+
+.food-body h3 {
+    font-size: 19px;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.food-description {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 63px;
+    margin-bottom: 12px;
+}
+
+.food-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 15px;
+}
+
+.info-tag {
+    background: #f5f5f5;
+    color: #555;
+    padding: 6px 9px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.rating {
+    color: #e09b00;
+}
+
+.details-btn {
+    width: 100%;
+    padding: 11px;
+    background: #e63946;
+    border: none;
+    color: white;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.details-btn:hover {
+    background: #c92f3b;
+}
+
+/* Loader */
+
+.loader {
+    text-align: center;
+    padding: 50px;
+}
+
+.spinner {
+    width: 42px;
+    height: 42px;
+    border: 4px solid #ddd;
+    border-top-color: #e63946;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: auto auto 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Error */
+
+.error-message {
+    text-align: center;
+    color: #d62828;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+/* Modal */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 14px;
+    position: relative;
+}
+
+.modal-content > img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    color: #333;
+    font-size: 25px;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn:hover {
+    background: #e63946;
+    color: white;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.modal-body h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.modal-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.modal-info span {
+    background: #f5f5f5;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.modal-body > p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.modal-body h3 {
+    margin-bottom: 10px;
+}
+
+.modal-body ul {
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+.modal-body li {
+    margin-bottom: 7px;
+    color: #555;
+}
+
+
+.extra-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.extra-info div {
+    background: #131313;
+    padding: 14px;
+    border-radius: 8px;
+}
+
+.extra-info strong {
+    color: white;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.extra-info span {
+    color: #e0e0e0;
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+
+    .food-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media (max-width: 750px) {
+
+    .nav {
+        flex-direction: column;
+        padding: 15px 0;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .food-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .extra-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .container {
+        width: 92%;
+    }
+
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 50px 0;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .modal-content > img {
+        height: 220px;
+    }
+
+    .extra-info {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+====> JAVA SCRIPT
+
+const API_URL = "https://dummyjson.com/recipes";
+
+const foodContainer = document.getElementById("foodContainer");
+const loader = document.getElementById("loader");
+const errorMessage = document.getElementById("errorMessage");
+const resultText = document.getElementById("resultText");
+
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+
+const modal = document.getElementById("foodModal");
+const closeModal = document.getElementById("closeModal");
+
+const modalImage = document.getElementById("modalImage");
+const modalTitle = document.getElementById("modalTitle");
+const modalRating = document.getElementById("modalRating");
+const modalCuisine = document.getElementById("modalCuisine");
+const modalDifficulty = document.getElementById("modalDifficulty");
+const modalDescription = document.getElementById("modalDescription");
+
+const modalIngredients = document.getElementById("modalIngredients");
+
+const modalPrep = document.getElementById("modalPrep");
+const modalCook = document.getElementById("modalCook");
+const modalServings = document.getElementById("modalServings");
+const modalCalories = document.getElementById("modalCalories");
+
+
+// =====================================
+// Get All Recipes
+// =====================================
+
+async function getRecipes() {
+
+    showLoader();
+
+    try {
+
+        const response = await fetch(`${API_URL}?limit=0`);
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch recipes");
+        }
+
+        const data = await response.json();
+
+        displayRecipes(data.recipes);
+
+    } catch (error) {
+
+        console.error(error);
+
+        showError(
+            "Unable to load food menu. Please try again."
+        );
+
+    } finally {
+
+        hideLoader();
+
+    }
+}
+
+
+// =====================================
+// Search Recipes
+// =====================================
+
+async function searchRecipes() {
+
+    const searchValue = searchInput.value.trim();
+
+    if (searchValue === "") {
+
+        getRecipes();
+
+        return;
+    }
+
+    showLoader();
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/search?q=${encodeURIComponent(searchValue)}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Search failed");
+        }
+
+        const data = await response.json();
+
+        displayRecipes(data.recipes);
+
+    } catch (error) {
+
+        console.error(error);
+
+        showError(
+            "Something went wrong while searching."
+        );
+
+    } finally {
+
+        hideLoader();
+
+    }
+}
+
+
+// =====================================
+// Display Recipes
+// =====================================
+
+function displayRecipes(recipes) {
+
+    foodContainer.innerHTML = "";
+    errorMessage.textContent = "";
+
+    if (!recipes || recipes.length === 0) {
+
+        resultText.textContent = "No food found.";
+
+        foodContainer.innerHTML = `
+            <div style="
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 40px;
+                color: #777;
+            ">
+                <h3>No recipes found 😕</h3>
+                <p>Try searching for another food.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    resultText.textContent =
+        `${recipes.length} delicious recipes found`;
+
+    recipes.forEach(recipe => {
+
+        const card = document.createElement("div");
+
+        card.className = "food-card";
+
+        card.innerHTML = `
+
+            <img
+                class="food-image"
+                src="${recipe.image}"
+                alt="${recipe.name}"
+            >
+
+            <div class="food-body">
+
+                <h3>${recipe.name}</h3>
+
+                <p class="food-description">
+                    ${createDescription(recipe)}
+                </p>
+
+                <div class="food-info">
+
+                    <span class="info-tag rating">
+                        ⭐ ${recipe.rating}
+                    </span>
+
+                    <span class="info-tag">
+                        🌍 ${recipe.cuisine}
+                    </span>
+
+                    <span class="info-tag">
+                        ⏱️ ${recipe.cookTimeMinutes} min
+                    </span>
+
+                    <span class="info-tag">
+                        ${recipe.difficulty}
+                    </span>
+
+                </div>
+
+                <button
+                    class="details-btn"
+                    onclick="openRecipe(${recipe.id})"
+                >
+                    View Details
+                </button>
+
+            </div>
+        `;
+
+        foodContainer.appendChild(card);
+
+    });
+}
+
+
+// =====================================
+// Create Description
+// =====================================
+
+function createDescription(recipe) {
+
+    if (
+        recipe.ingredients &&
+        recipe.ingredients.length > 0
+    ) {
+
+        return `
+            Delicious ${recipe.cuisine} recipe made with
+            ${recipe.ingredients.slice(0, 3).join(", ")} and more.
+        `;
+
+    }
+
+    return "A delicious recipe you can explore.";
+}
+
+
+// =====================================
+// Open Recipe Details
+// =====================================
+
+async function openRecipe(id) {
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/${id}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Recipe not found");
+        }
+
+        const recipe = await response.json();
+
+        // Image
+        modalImage.src = recipe.image;
+        modalImage.alt = recipe.name;
+
+        // Title
+        modalTitle.textContent = recipe.name;
+
+        // Rating
+        modalRating.textContent =
+            `⭐ ${recipe.rating} (${recipe.reviewCount} reviews)`;
+
+        // Cuisine
+        modalCuisine.textContent =
+            `🌍 ${recipe.cuisine}`;
+
+        // Difficulty
+        modalDifficulty.textContent =
+            `📊 ${recipe.difficulty}`;
+
+        // Description
+        const meals = Array.isArray(recipe.mealType)
+            ? recipe.mealType.join(", ")
+            : "different meals";
+
+        modalDescription.textContent =
+            `Enjoy this delicious ${recipe.cuisine} recipe. ` +
+            `It is perfect for ${meals}.`;
+
+        // Preparation
+        modalPrep.textContent =
+            `${recipe.prepTimeMinutes} minutes`;
+
+        // Cooking
+        modalCook.textContent =
+            `${recipe.cookTimeMinutes} minutes`;
+
+        // Servings
+        modalServings.textContent =
+            `${recipe.servings}`;
+
+        // Calories
+        modalCalories.textContent =
+            `${recipe.caloriesPerServing} kcal`;
+
+        // Ingredients
+        modalIngredients.innerHTML = "";
+
+        recipe.ingredients.forEach(ingredient => {
+
+            const li = document.createElement("li");
+
+            li.textContent = ingredient;
+
+            modalIngredients.appendChild(li);
+
+        });
+
+        // Open modal
+        modal.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to load recipe details.");
+
+    }
+}
+
+
+// =====================================
+// Close Modal
+// =====================================
+
+function closeRecipeModal() {
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "auto";
+}
+
+closeModal.addEventListener(
+    "click",
+    closeRecipeModal
+);
+
+
+// =====================================
+// Close Modal By Clicking Outside
+// =====================================
+
+modal.addEventListener("click", function (event) {
+
+    if (event.target === modal) {
+
+        closeRecipeModal();
+
+    }
+
+});
+
+
+// =====================================
+// Search Button
+// =====================================
+
+searchBtn.addEventListener(
+    "click",
+    searchRecipes
+);
+
+
+// =====================================
+// Search With Enter Key
+// =====================================
+
+searchInput.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Enter") {
+
+            searchRecipes();
+
+        }
+
+    }
+);
+
+
+// =====================================
+// Loader
+// =====================================
+
+function showLoader() {
+
+    loader.style.display = "block";
+
+    foodContainer.innerHTML = "";
+
+    errorMessage.textContent = "";
+
+    resultText.textContent =
+        "Loading delicious food...";
+}
+
+
+function hideLoader() {
+
+    loader.style.display = "none";
+
+}
+
+
+// =====================================
+// Error
+// =====================================
+
+function showError(message) {
+
+    loader.style.display = "none";
+
+    foodContainer.innerHTML = "";
+
+    errorMessage.textContent = message;
+
+    resultText.textContent =
+        "Something went wrong.";
+
+}
+
+
+// =====================================
+// Start Application
+// =====================================
+
+getRecipes();
