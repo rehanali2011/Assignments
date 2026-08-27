@@ -1,0 +1,154 @@
+===> HTML
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme JS Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="card">
+        <div class="header">
+            <h2>Theme Switcher</h2>
+            <button id="themeToggleBtn" class="toggle-btn">🌙 Dark Mode</button>
+        </div>
+
+        <hr>
+
+        <div class="content">
+            <h3>Welcome to My Website</h3>
+            <p>
+                Is project me hum Light aur Dark theme manage kar rahe hain.
+                Aap jab bhi mode change karenge, aapki preference <b>LocalStorage</b> me save ho jayegi.
+                Page refresh karne par bhi wahi theme rahegi!
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+===> CSS
+
+/* Base Light Theme Variables */
+:root {
+    --bg-color: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-color: #222222;
+    --border-color: #e0e0e0;
+    --btn-bg: #222222;
+    --btn-text: #ffffff;
+}
+
+/* Dark Theme Variables */
+body.dark-mode {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #f1f1f1;
+    --border-color: #333333;
+    --btn-bg: #f1f1f1;
+    --btn-text: #121212;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 15px 0;
+}
+
+.toggle-btn {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.toggle-btn:hover {
+    opacity: 0.9;
+}
+
+.content p {
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+
+===> JAVA SCRIPT
+
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+
+    // 1. LocalStorage se saved theme check karo
+    const savedTheme = localStorage.getItem("appTheme");
+
+    // Agar pehle se dark saved tha, to class add kar do
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        themeToggleBtn.textContent = "☀️ Light Mode";
+    }
+
+    // 2. Toggle button click event listener
+    themeToggleBtn.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+
+        let currentTheme = "light";
+
+        if (document.body.classList.contains("dark-mode")) {
+            currentTheme = "dark";
+            themeToggleBtn.textContent = "☀️ Light Mode";
+        } else {
+            themeToggleBtn.textContent = "🌙 Dark Mode";
+        }
+
+        // 3. Choice ko LocalStorage me save karo
+        localStorage.setItem("appTheme", currentTheme);
+    });
+});
