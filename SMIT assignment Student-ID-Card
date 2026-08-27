@@ -1,0 +1,645 @@
+===> HTML
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SMIT Student ID Card Generator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>SMIT Student ID Card Generator</h1>
+
+        <p class="subtitle">
+            Enter student details to generate ID card
+        </p>
+
+
+        <!-- ================= FORM ================= -->
+
+        <div class="form-box">
+
+            <div class="input-group">
+                <label for="studentName">Student Name</label>
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter student name"
+                >
+            </div>
+
+
+            <div class="input-group">
+                <label for="fatherName">Father Name</label>
+                <input
+                    type="text"
+                    id="fatherName"
+                    placeholder="Enter father name"
+                >
+            </div>
+
+
+            <div class="input-group">
+                <label for="studentId">Student ID</label>
+                <input
+                    type="text"
+                    id="studentId"
+                    placeholder="Enter student ID"
+                >
+            </div>
+
+
+            <div class="input-group">
+                <label for="course">Course</label>
+                <input
+                    type="text"
+                    id="course"
+                    placeholder="e.g. Web Development"
+                >
+            </div>
+
+
+            <div class="input-group">
+                <label for="batch">Batch</label>
+                <input
+                    type="text"
+                    id="batch"
+                    placeholder="e.g. Batch 12"
+                >
+            </div>
+
+
+            <div class="input-group">
+                <label for="studentPhoto">Student Photo</label>
+                <input
+                    type="file"
+                    id="studentPhoto"
+                    accept="image/*"
+                >
+            </div>
+
+
+            <button id="generateBtn">
+                Generate ID Card
+            </button>
+
+        </div>
+
+
+        <!-- ================= ID CARD ================= -->
+
+        <div class="card-area" id="cardArea">
+
+            <div class="id-card">
+
+                <!-- Card Header -->
+
+                <div class="card-header">
+
+                    <h2>SMIT</h2>
+
+                    <p>
+                        Saylani Mass IT Training
+                    </p>
+
+                </div>
+
+
+                <!-- Card Body -->
+
+                <div class="card-body">
+
+                    <!-- Student Photo -->
+
+                    <div class="photo-box">
+
+                        <img
+                            id="cardPhoto"
+                            src=""
+                            alt="Student Photo"
+                        >
+
+                    </div>
+
+
+                    <!-- Student Information -->
+
+                    <div class="student-info">
+
+                        <h3 id="cardName">
+                        </h3>
+
+
+                        <p>
+                            <strong>Father:</strong>
+                            <span id="cardFather">
+                            </span>
+                        </p>
+
+
+                        <p>
+                            <strong>ID:</strong>
+                            <span id="cardId">
+                            </span>
+                        </p>
+
+
+                        <p>
+                            <strong>Course:</strong>
+                            <span id="cardCourse">
+                            </span>
+                        </p>
+
+
+                        <p>
+                            <strong>Batch:</strong>
+                            <span id="cardBatch">
+                            </span>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Card Footer -->
+
+                <div class="card-footer">
+
+                    <span>
+                        STUDENT ID CARD
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+
+====> CSS
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+
+    background: #f2f4f7;
+
+    min-height: 100vh;
+
+    padding: 40px 20px;
+}
+
+
+.container {
+    max-width: 900px;
+
+    margin: auto;
+}
+
+
+/* ================= HEADING ================= */
+
+h1 {
+    text-align: center;
+
+    color: #222;
+
+    margin-bottom: 8px;
+}
+
+
+.subtitle {
+    text-align: center;
+
+    color: #666;
+
+    margin-bottom: 30px;
+}
+
+
+/* ================= FORM ================= */
+
+.form-box {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.08);
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+}
+
+
+.input-group {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.input-group label {
+    font-weight: bold;
+
+    margin-bottom: 7px;
+
+    color: #333;
+}
+
+
+.input-group input {
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+
+.input-group input:focus {
+    border-color: #0b8f55;
+}
+
+
+/* ================= BUTTON ================= */
+
+#generateBtn {
+    grid-column: 1 / -1;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #0b8f55;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+#generateBtn:hover {
+    background: #087545;
+}
+
+
+/* ================= CARD AREA ================= */
+
+.card-area {
+    display: none;
+
+    margin-top: 35px;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+/* ================= ID CARD ================= */
+
+.id-card {
+    width: 430px;
+
+    min-height: 250px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    border: 1px solid #ddd;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ================= CARD HEADER ================= */
+
+.card-header {
+    background: #0b8f55;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 15px;
+}
+
+
+.card-header h2 {
+    font-size: 28px;
+
+    margin-bottom: 4px;
+}
+
+
+.card-header p {
+    font-size: 13px;
+}
+
+
+/* ================= CARD BODY ================= */
+
+.card-body {
+    display: flex;
+
+    padding: 20px;
+
+    gap: 20px;
+}
+
+
+/* ================= PHOTO ================= */
+
+.photo-box {
+    width: 110px;
+
+    height: 130px;
+
+    border: 2px solid #0b8f55;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+
+    background: #eee;
+}
+
+
+.photo-box img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* ================= STUDENT INFO ================= */
+
+.student-info {
+    flex: 1;
+}
+
+
+.student-info h3 {
+    color: #0b8f55;
+
+    margin-bottom: 12px;
+
+    font-size: 21px;
+}
+
+
+.student-info p {
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    color: #333;
+}
+
+
+.student-info strong {
+    color: #111;
+}
+
+
+/* ================= FOOTER ================= */
+
+.card-footer {
+    background: #f1f1f1;
+
+    text-align: center;
+
+    padding: 10px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    color: #555;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 650px) {
+
+    body {
+        padding: 25px 15px;
+    }
+
+
+    h1 {
+        font-size: 25px;
+    }
+
+
+    .form-box {
+        grid-template-columns: 1fr;
+    }
+
+
+    #generateBtn {
+        grid-column: auto;
+    }
+
+
+    .id-card {
+        width: 100%;
+
+        max-width: 430px;
+    }
+
+
+    .card-body {
+        padding: 15px;
+
+        gap: 12px;
+    }
+
+
+    .photo-box {
+        width: 90px;
+
+        height: 110px;
+    }
+
+
+    .student-info h3 {
+        font-size: 18px;
+    }
+
+
+    .student-info p {
+        font-size: 12px;
+    }
+
+}
+
+
+====> JAVA SCRIPT
+
+
+// Get Generate Button
+const generateBtn = document.getElementById("generateBtn");
+
+
+// Get Form
+const formBox = document.querySelector(".form-box");
+
+
+// Get Card Area
+const cardArea = document.getElementById("cardArea");
+
+
+// Generate Button Click
+generateBtn.addEventListener("click", function () {
+
+    // Get input values
+    const name =
+        document.getElementById("studentName").value.trim();
+
+    const father =
+        document.getElementById("fatherName").value.trim();
+
+    const studentId =
+        document.getElementById("studentId").value.trim();
+
+    const course =
+        document.getElementById("course").value.trim();
+
+    const batch =
+        document.getElementById("batch").value.trim();
+
+    const photoInput =
+        document.getElementById("studentPhoto");
+
+
+    // ================= VALIDATION =================
+
+    if (name === "") {
+        alert("Please enter student name.");
+        return;
+    }
+
+
+    if (father === "") {
+        alert("Please enter father name.");
+        return;
+    }
+
+
+    if (studentId === "") {
+        alert("Please enter student ID.");
+        return;
+    }
+
+
+    if (course === "") {
+        alert("Please enter course.");
+        return;
+    }
+
+
+    if (batch === "") {
+        alert("Please enter batch.");
+        return;
+    }
+
+
+    if (photoInput.files.length === 0) {
+        alert("Please select student photo.");
+        return;
+    }
+
+
+    // ================= ADD DATA TO CARD =================
+
+    document.getElementById("cardName").textContent = name;
+
+    document.getElementById("cardFather").textContent = father;
+
+    document.getElementById("cardId").textContent = studentId;
+
+    document.getElementById("cardCourse").textContent = course;
+
+    document.getElementById("cardBatch").textContent = batch;
+
+
+    // ================= PHOTO =================
+
+    const file = photoInput.files[0];
+
+    const reader = new FileReader();
+
+
+    reader.onload = function (event) {
+
+        // Add photo to card
+        document.getElementById("cardPhoto").src =
+            event.target.result;
+
+
+        // ================= HIDE FORM =================
+
+        formBox.style.display = "none";
+
+
+        // ================= SHOW CARD =================
+
+        cardArea.style.display = "flex";
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+});
+
