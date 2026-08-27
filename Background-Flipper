@@ -1,0 +1,155 @@
+===> HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Flipper</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="box">
+
+            <h1>Background Flipper</h1>
+
+            <p>Background Color:</p>
+
+            <h2 id="colorCode">#ffffff</h2>
+
+            <button id="changeColor">
+                Change Background
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+====> CSS
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    transition: background-color 0.4s ease;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    background-color: white;
+
+    width: 400px;
+    padding: 40px 30px;
+
+    text-align: center;
+
+    border-radius: 12px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.box h1 {
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.box p {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.box h2 {
+    margin-bottom: 25px;
+    color: #444;
+}
+
+button {
+    padding: 13px 22px;
+
+    border: none;
+    border-radius: 7px;
+
+    background-color: #222;
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #444;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 500px) {
+
+    .box {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .box h1 {
+        font-size: 28px;
+    }
+
+}
+
+
+===> JAVA SCRIPT
+
+const changeColor = document.getElementById("changeColor");
+const colorCode = document.getElementById("colorCode");
+
+function getRandomColor() {
+
+    const letters = "0123456789ABCDEF";
+
+    let color = "#";
+
+    for (let i = 0; i < 6; i++) {
+
+        let randomNumber = Math.floor(
+            Math.random() * 16
+        );
+
+        color += letters[randomNumber];
+    }
+
+    return color;
+}
+
+changeColor.addEventListener("click", function() {
+
+    const newColor = getRandomColor();
+
+    document.body.style.backgroundColor = newColor;
+
+    colorCode.textContent = newColor;
+
+});
