@@ -1,0 +1,1407 @@
+====> Dashbord
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn — Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="app-page">
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand app-brand" href="dashboard.html">Linked<span>in</span></a>
+            <div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search"></div>
+            <nav class="main-nav">
+                <a class="nav-item active" href="dashboard.html"><b>⌂</b><span>Home</span></a>
+                <a class="nav-item" href="#"><b>♙</b><span>My Network</span></a>
+                <a class="nav-item" href="#"><b>▣</b><span>Jobs</span></a>
+                <a class="nav-item" href="#"><b>◉</b><span>Messaging</span></a>
+                <a class="nav-item" href="#"><b>●</b><span>Notifications</span></a>
+                <a class="nav-item profile-nav" href="profile.html">
+                    <div class="mini-avatar">RA</div><span>Me⌄</span>
+                </a>
+            </nav>
+            <button class="mobile-menu-btn" id="appMenuBtn">☰</button>
+        </div>
+    </header>
+    <div class="mobile-nav" id="appMobileNav">
+        <a href="dashboard.html">⌂ Home</a><a href="#">♙ My Network</a><a href="#">▣ Jobs</a><a href="#">◉
+            Messaging</a><a href="#">● Notifications</a><a href="profile.html">● Profile</a>
+    </div>
+
+    <main class="feed-layout">
+        <aside class="left-col">
+            <section class="panel profile-mini">
+                <div class="cover"></div>
+                <div class="avatar big">RA</div>
+                <div class="mini-body">
+                    <h3>Rehan Ali</h3>
+                    <p>Web Developer · WordPress · Elementor</p><small>Karachi, Pakistan</small>
+                </div>
+                <div class="mini-stats"><span>Profile viewers <b>42</b></span><span>Post impressions <b>318</b></span>
+                </div>
+            </section>
+            <section class="panel shortcuts"><a href="#">▣ Saved items</a><a href="#">♧ Groups</a><a href="#">◈
+                    Newsletters</a><a href="#">⚑ Events</a></section>
+        </aside>
+
+        <section class="center-col">
+            <section class="panel composer">
+                <div class="compose-top">
+                    <div class="avatar">RA</div><button id="postOpen">Start a post</button>
+                </div>
+                <div class="compose-actions"><button>▣ Media</button><button>▤ Event</button><button>✎ Write
+                        article</button></div>
+            </section>
+
+            <div class="sort-row"><span>Sort by:</span><button>Top <span>⌄</span></button></div>
+
+            <article class="panel post" data-post="web developer">
+                <div class="post-head">
+                    <div class="avatar">JS</div>
+                    <div>
+                        <h3>John Smith</h3>
+                        <p>Product Designer · 2h</p>
+                    </div><button class="more">•••</button>
+                </div>
+                <p class="post-text">Great products start with great experiences. Today we're sharing three simple
+                    principles that helped our team create a cleaner onboarding journey.</p>
+                <div class="post-image design-img"><span>Design better.<br><b>Build smarter.</b></span></div>
+                <div class="engagement"><span>♥ 124</span><span>18 comments · 7 reposts</span></div>
+                <div class="post-actions"><button>♡ Like</button><button>◌ Comment</button><button>↻
+                        Repost</button><button>↗ Send</button></div>
+            </article>
+
+            <article class="panel post" data-post="javascript developer">
+                <div class="post-head">
+                    <div class="avatar orange">MK</div>
+                    <div>
+                        <h3>Maria Khan</h3>
+                        <p>Frontend Developer · 5h</p>
+                    </div><button class="more">•••</button>
+                </div>
+                <p class="post-text">Just finished a responsive dashboard using semantic HTML, modern CSS and vanilla
+                    JavaScript. The best tools are often the simplest ones.</p>
+                <div class="code-preview"><span>const</span> responsive = <b>true</b>;<br>buildWebsite(responsive);
+                </div>
+                <div class="engagement"><span>♥ 89</span><span>12 comments</span></div>
+                <div class="post-actions"><button>♡ Like</button><button>◌ Comment</button><button>↻
+                        Repost</button><button>↗ Send</button></div>
+            </article>
+        </section>
+
+        <aside class="right-col">
+            <section class="panel news">
+                <h2>LinkedIn News</h2>
+                <p class="muted">Top stories for you</p>
+                <a href="#"><b>AI skills reshape modern workplaces</b><small>1,204 readers</small></a>
+                <a href="#"><b>Design teams focus on accessibility</b><small>832 readers</small></a>
+                <a href="#"><b>Remote work continues to evolve</b><small>647 readers</small></a>
+                <a href="#"><b>Web development skills in demand</b><small>529 readers</small></a>
+            </section>
+            <section class="panel suggestions">
+                <h2>Add to your network</h2>
+                <div class="suggest">
+                    <div class="avatar purple">SA</div>
+                    <div><b>Sarah Ahmed</b>
+                        <p>UI/UX Designer</p><button>+ Connect</button>
+                    </div>
+                </div>
+                <div class="suggest">
+                    <div class="avatar green">DH</div>
+                    <div><b>David Hussain</b>
+                        <p>Software Engineer</p><button>+ Connect</button>
+                    </div>
+                </div>
+                <div class="suggest">
+                    <div class="avatar orange">AR</div>
+                    <div><b>Ali Raza</b>
+                        <p>Digital Marketer</p><button>+ Connect</button>
+                    </div>
+                </div>
+            </section>
+        </aside>
+    </main>
+
+    <div class="modal" id="postModal">
+        <div class="modal-card"><button class="close" id="closeModal">×</button>
+            <h2>Create a post</h2><textarea id="postText" placeholder="What do you want to talk about?"></textarea>
+            <div class="modal-footer"><button class="btn primary" id="publishPost">Post</button></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+====> index
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn — Join Now</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+    <header class="auth-header"><a class="brand" href="index.html">Linked<span>in</span></a></header>
+    <main class="auth-main">
+        <section class="auth-card">
+            <h1>Make the most of your professional life</h1>
+            <form id="joinForm">
+                <label>First name<input type="text" id="firstName" required></label>
+                <label>Last name<input type="text" id="lastName" required></label>
+                <label>Email<input type="email" id="joinEmail" required></label>
+                <label>Password (6+ characters)<input type="password" id="joinPassword" minlength="6" required></label>
+                <p class="terms">By clicking Agree & Join, you agree to the Terms of Service, Privacy Policy and Cookie
+                    Policy.</p>
+                <button class="btn primary full" type="submit">Agree & Join</button>
+            </form>
+            <div class="divider"><span>or</span></div>
+            <a class="btn google full" href="#">Continue with Google</a>
+            <p class="switch">Already on LinkedIn? <a href="login.html">Sign in</a></p>
+        </section>
+    </main>
+    <footer class="auth-footer">© 2026 LinkedIn-style educational project · Privacy · Terms · Accessibility</footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+====> login
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn — Join Now</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+    <header class="auth-header"><a class="brand" href="index.html">Linked<span>in</span></a></header>
+    <main class="auth-main">
+        <section class="auth-card">
+            <h1>Make the most of your professional life</h1>
+            <form id="joinForm">
+                <label>First name<input type="text" id="firstName" required></label>
+                <label>Last name<input type="text" id="lastName" required></label>
+                <label>Email<input type="email" id="joinEmail" required></label>
+                <label>Password (6+ characters)<input type="password" id="joinPassword" minlength="6" required></label>
+                <p class="terms">By clicking Agree & Join, you agree to the Terms of Service, Privacy Policy and Cookie
+                    Policy.</p>
+                <button class="btn primary full" type="submit">Agree & Join</button>
+            </form>
+            <div class="divider"><span>or</span></div>
+            <a class="btn google full" href="#">Continue with Google</a>
+            <p class="switch">Already on LinkedIn? <a href="login.html">Sign in</a></p>
+        </section>
+    </main>
+    <footer class="auth-footer">© 2026 LinkedIn-style educational project · Privacy · Terms · Accessibility</footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+====> profile
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn — Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="app-page">
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand app-brand" href="dashboard.html">Linked<span>in</span></a>
+            <div class="search"><span>⌕</span><input type="search" placeholder="Search"></div>
+            <nav class="main-nav">
+                <a class="nav-item" href="dashboard.html"><b>⌂</b><span>Home</span></a><a class="nav-item"
+                    href="#"><b>♙</b><span>My Network</span></a><a class="nav-item"
+                    href="#"><b>▣</b><span>Jobs</span></a><a class="nav-item"
+                    href="#"><b>◉</b><span>Messaging</span></a><a class="nav-item"
+                    href="#"><b>●</b><span>Notifications</span></a><a class="nav-item profile-nav active"
+                    href="profile.html">
+                    <div class="mini-avatar">AB</div><span>Me⌄</span>
+                </a>
+            </nav><button class="mobile-menu-btn" id="appMenuBtn">☰</button>
+        </div>
+    </header>
+    <div class="mobile-nav" id="appMobileNav"><a href="dashboard.html">⌂ Home</a><a href="#">♙ My Network</a><a
+            href="#">▣ Jobs</a><a href="#">◉ Messaging</a><a href="#">● Notifications</a><a href="profile.html">●
+            Profile</a></div>
+
+    <main class="profile-layout">
+        <section>
+            <section class="panel profile-header">
+                <div class="profile-cover"></div>
+                <div class="avatar profile-avatar">AB</div>
+                <div class="profile-info">
+                    <div class="profile-title">
+                        <div>
+                            <h1>Rehan Ali</h1>
+                            <p>WordPress & Front-End Developer</p>
+                            <p class="muted">Karachi, Pakistan · <a href="#">Contact info</a></p>
+                        </div><button class="edit-btn" id="editProfile">✎</button>
+                    </div>
+                    <p class="bio">I build responsive, conversion-focused websites using WordPress, Elementor, HTML, CSS
+                        and JavaScript. I enjoy turning ideas into clean digital experiences.</p>
+                    <div class="profile-buttons"><button class="btn primary">Open to</button><button
+                            class="btn outline">Add profile section</button><button class="btn outline">More</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel content-panel">
+                <div class="section-title">
+                    <h2>About</h2><button>✎</button>
+                </div>
+                <p>I am a web developer focused on modern, responsive websites and CMS solutions. I work with clients
+                    and teams to create fast, accessible and professional digital products.</p>
+            </section>
+
+            <section class="panel content-panel">
+                <div class="section-title">
+                    <h2>Experience</h2><button>＋</button>
+                </div>
+                <div class="experience">
+                    <div class="company-logo">W</div>
+                    <div>
+                        <h3>WordPress Developer</h3>
+                        <p>Freelance · Full-time</p><span>Jan 2024 – Present · 2 yrs 8 mos</span>
+                        <p class="exp-text">Develop responsive websites, landing pages and CMS solutions using
+                            WordPress, Elementor, WooCommerce and custom CSS/JavaScript.</p>
+                    </div>
+                </div>
+                <div class="experience">
+                    <div class="company-logo dark">E</div>
+                    <div>
+                        <h3>Web Developer</h3>
+                        <p>Digital Agency</p><span>2022 – 2023 · 1 yr</span>
+                        <p class="exp-text">Built and maintained client websites with a focus on responsive UI,
+                            performance and usability.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel content-panel">
+                <div class="section-title">
+                    <h2>Skills</h2><button>＋</button>
+                </div>
+                <div class="skills-list">
+                    <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>WordPress</span><span>Elementor</span><span>WooCommerce</span><span>Tailwind
+                        CSS</span><span>Responsive Design</span></div>
+            </section>
+        </section>
+
+        <aside class="profile-side">
+            <section class="panel side-card">
+                <h3>Profile language</h3>
+                <p>English</p>
+                <hr>
+                <h3>Public profile & URL</h3>
+                <p>linkedin.com/in/rehan-ali</p>
+            </section>
+            <section class="panel side-card">
+                <h3>People also viewed</h3>
+                <div class="person">
+                    <div class="avatar purple">HA</div>
+                    <div><b>Hamza Ali</b>
+                        <p>Frontend Developer</p>
+                    </div>
+                </div>
+                <div class="person">
+                    <div class="avatar green">SN</div>
+                    <div><b>Sarah Noor</b>
+                        <p>Product Designer</p>
+                    </div>
+                </div>
+            </section>
+        </aside>
+    </main>
+
+    <div class="modal" id="editModal">
+        <div class="modal-card"><button class="close" id="closeEdit">×</button>
+            <h2>Edit intro</h2><label>Headline<input id="headlineInput"
+                    value="WordPress & Front-End Developer"></label><label>About<textarea
+                    id="bioInput">I build responsive, conversion-focused websites using WordPress, Elementor, HTML, CSS and JavaScript. I enjoy turning ideas into clean digital experiences.</textarea></label>
+            <div class="modal-footer"><button class="btn primary" id="saveProfile">Save</button></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+====> script.js
+
+document.addEventListener("DOMContentLoaded", () => {
+  const joinForm = document.getElementById("joinForm");
+  if (joinForm) {
+    joinForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const first = document.getElementById("firstName").value.trim();
+      localStorage.setItem("linkedinUser", first || "User");
+      alert("Account created successfully! This is a front-end demo.");
+      window.location.href = "dashboard.html";
+    });
+  }
+
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", e => {
+      e.preventDefault();
+      localStorage.setItem("linkedinUser", "User");
+      alert("Signed in successfully! This is a front-end demo.");
+      window.location.href = "dashboard.html";
+    });
+  }
+
+  const appMenuBtn = document.getElementById("appMenuBtn");
+  const appMobileNav = document.getElementById("appMobileNav");
+  if (appMenuBtn) {
+    appMenuBtn.addEventListener("click", () => appMobileNav.classList.toggle("show"));
+  }
+
+  const postOpen = document.getElementById("postOpen");
+  const postModal = document.getElementById("postModal");
+  const closeModal = document.getElementById("closeModal");
+  const publishPost = document.getElementById("publishPost");
+  const postText = document.getElementById("postText");
+
+  if (postOpen) postOpen.addEventListener("click", () => postModal.classList.add("show"));
+  if (closeModal) closeModal.addEventListener("click", () => postModal.classList.remove("show"));
+  if (publishPost) {
+    publishPost.addEventListener("click", () => {
+      const text = postText.value.trim();
+      if (!text) return alert("Write something before posting.");
+      const post = document.createElement("article");
+      post.className = "panel post";
+      post.innerHTML = `<div class="post-head"><div class="avatar">RA</div><div><h3>Rehan Ali</h3><p>Just now</p></div></div><p class="post-text"></p><div class="engagement"><span>♥ 0</span><span>0 comments</span></div><div class="post-actions"><button>♡ Like</button><button>◌ Comment</button><button>↻ Repost</button><button>↗ Send</button></div>`;
+      post.querySelector(".post-text").textContent = text;
+      document.querySelector(".center-col").insertBefore(post, document.querySelector(".sort-row"));
+      postModal.classList.remove("show");
+      postText.value = "";
+    });
+  }
+
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", e => {
+      const term = e.target.value.toLowerCase().trim();
+      document.querySelectorAll(".post[data-post]").forEach(post => {
+        post.style.display = !term || post.dataset.post.includes(term) ? "" : "none";
+      });
+    });
+  }
+
+  const editProfile = document.getElementById("editProfile");
+  const editModal = document.getElementById("editModal");
+  const closeEdit = document.getElementById("closeEdit");
+  const saveProfile = document.getElementById("saveProfile");
+  if (editProfile) editProfile.addEventListener("click", () => editModal.classList.add("show"));
+  if (closeEdit) closeEdit.addEventListener("click", () => editModal.classList.remove("show"));
+  if (saveProfile) {
+    saveProfile.addEventListener("click", () => {
+      const headline = document.getElementById("headlineInput").value.trim();
+      const bio = document.getElementById("bioInput").value.trim();
+      document.querySelector(".profile-title p").textContent = headline;
+      document.querySelector(".bio").textContent = bio;
+      editModal.classList.remove("show");
+    });
+  }
+
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.addEventListener("click", e => {
+      if (e.target === modal) modal.classList.remove("show");
+    });
+  });
+});
+
+
+====> style.css
+
+* {
+    box-sizing: border-box
+}
+
+:root {
+    --blue: #0a66c2;
+    --dark: #1d2226;
+    --text: #1f2328;
+    --muted: #666;
+    --bg: #f3f2ef;
+    --border: #d9d9d9;
+    --white: #fff
+}
+
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.5
+}
+
+a {
+    text-decoration: none;
+    color: var(--blue)
+}
+
+button,
+input,
+textarea {
+    font: inherit
+}
+
+button {
+    cursor: pointer
+}
+
+.brand {
+    font-weight: 800;
+    font-size: 34px;
+    letter-spacing: -2px;
+    color: var(--blue)
+}
+
+.brand span {
+    background: var(--blue);
+    color: #fff;
+    border-radius: 4px;
+    padding: 0 2px
+}
+
+.auth-page {
+    background: #f3f2ef;
+    min-height: 100vh
+}
+
+.auth-header {
+    padding: 25px max(5%, calc((100% - 1120px)/2));
+    background: #fff
+}
+
+.auth-main {
+    display: flex;
+    justify-content: center;
+    padding: 55px 20px
+}
+
+.auth-card {
+    width: 400px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 8px #0001
+}
+
+.auth-card h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 22px
+}
+
+.auth-card .sub {
+    color: var(--muted);
+    margin-top: -13px;
+    margin-bottom: 25px
+}
+
+.auth-card label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 14px 0
+}
+
+.auth-card input,
+.modal-card input,
+.modal-card textarea {
+    width: 100%;
+    border: 1px solid #777;
+    border-radius: 4px;
+    padding: 12px;
+    margin-top: 6px;
+    outline: none
+}
+
+.auth-card input:focus,
+.modal-card input:focus,
+.modal-card textarea:focus {
+    border: 2px solid var(--blue)
+}
+
+.terms {
+    font-size: 11px;
+    color: #666;
+    margin: 20px 0
+}
+
+.btn {
+    border: 0;
+    border-radius: 24px;
+    padding: 11px 22px;
+    font-weight: 700
+}
+
+.primary {
+    background: var(--blue);
+    color: #fff
+}
+
+.primary:hover {
+    background: #004182
+}
+
+.full {
+    width: 100%;
+    border-radius: 25px
+}
+
+.google {
+    border: 1px solid #777;
+    text-align: center;
+    color: #333;
+    background: #fff
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #777;
+    margin: 22px 0
+}
+
+.divider:before,
+.divider:after {
+    content: "";
+    height: 1px;
+    background: #ddd;
+    flex: 1
+}
+
+.switch {
+    text-align: center;
+    margin-top: 25px
+}
+
+.forgot {
+    display: block;
+    margin: 8px 0 18px;
+    font-weight: 600
+}
+
+.auth-footer {
+    text-align: center;
+    color: #666;
+    font-size: 11px;
+    padding: 20px
+}
+
+.topbar {
+    height: 56px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 20
+}
+
+.topbar-inner {
+    width: min(1120px, 94%);
+    height: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 9px
+}
+
+.app-brand {
+    font-size: 29px;
+    letter-spacing: -1.5px
+}
+
+.search {
+    height: 36px;
+    width: 280px;
+    background: #eef3f8;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 6px
+}
+
+.search span {
+    font-size: 22px
+}
+
+.search input {
+    border: 0;
+    background: transparent;
+    outline: 0;
+    width: 100%
+}
+
+.main-nav {
+    margin-left: auto;
+    height: 100%;
+    display: flex
+}
+
+.nav-item {
+    min-width: 70px;
+    padding: 5px 9px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 11px;
+    border-bottom: 2px solid transparent
+}
+
+.nav-item b {
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 20px
+}
+
+.nav-item:hover,
+.nav-item.active {
+    color: #222;
+    border-bottom-color: #222
+}
+
+.mini-avatar,
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #dce9f5;
+    color: #15558b;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    flex: none
+}
+
+.mini-avatar {
+    width: 22px;
+    height: 22px;
+    font-size: 9px
+}
+
+.profile-nav {
+    gap: 1px
+}
+
+.mobile-menu-btn {
+    display: none;
+    border: 0;
+    background: none;
+    font-size: 22px
+}
+
+.mobile-nav {
+    display: none
+}
+
+.feed-layout {
+    width: min(1120px, 94%);
+    margin: 24px auto;
+    display: grid;
+    grid-template-columns: 225px minmax(0, 1fr) 300px;
+    gap: 20px
+}
+
+.panel {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    overflow: hidden
+}
+
+.profile-mini .cover {
+    height: 54px;
+    background: linear-gradient(120deg, #8db9d9, #cbdff0)
+}
+
+.profile-mini .big {
+    margin: -21px auto 0;
+    width: 68px;
+    height: 68px;
+    border: 3px solid white
+}
+
+.mini-body {
+    text-align: center;
+    padding: 8px 15px 18px
+}
+
+.mini-body h3 {
+    margin: 0 0 4px
+}
+
+.mini-body p,
+.mini-body small {
+    font-size: 11px;
+    color: #666
+}
+
+.mini-stats {
+    border-top: 1px solid #eee;
+    padding: 12px 15px;
+    display: grid;
+    gap: 8px;
+    font-size: 11px;
+    color: #666
+}
+
+.mini-stats span {
+    display: flex;
+    justify-content: space-between
+}
+
+.mini-stats b {
+    color: var(--blue)
+}
+
+.shortcuts {
+    margin-top: 10px;
+    padding: 12px
+}
+
+.shortcuts a {
+    display: block;
+    padding: 7px;
+    color: #555;
+    font-size: 12px
+}
+
+.shortcuts a:hover {
+    color: var(--blue)
+}
+
+.composer {
+    padding: 15px
+}
+
+.compose-top {
+    display: flex;
+    gap: 10px
+}
+
+.compose-top button {
+    flex: 1;
+    border: 1px solid #777;
+    background: white;
+    border-radius: 25px;
+    text-align: left;
+    padding: 10px 18px;
+    color: #666
+}
+
+.compose-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 13px
+}
+
+.compose-actions button,
+.post-actions button {
+    border: 0;
+    background: none;
+    color: #555;
+    padding: 8px
+}
+
+.sort-row {
+    font-size: 11px;
+    color: #777;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px 0
+}
+
+.sort-row button {
+    border: 0;
+    background: none;
+    font-weight: 700
+}
+
+.post {
+    padding: 15px;
+    margin-bottom: 12px
+}
+
+.post-head {
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.post-head h3 {
+    font-size: 14px;
+    margin: 0
+}
+
+.post-head p {
+    font-size: 11px;
+    color: #777;
+    margin: 0
+}
+
+.more {
+    margin-left: auto;
+    border: 0;
+    background: none
+}
+
+.post-text {
+    font-size: 13px;
+    margin: 15px 0
+}
+
+.post-image {
+    height: 240px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    font-size: 28px
+}
+
+.design-img {
+    background: linear-gradient(135deg, #17212b, #2676bb);
+    color: #fff
+}
+
+.code-preview {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 5px;
+    padding: 28px;
+    font-family: monospace;
+    line-height: 2
+}
+
+.code-preview span {
+    color: #569cd6
+}
+
+.code-preview b {
+    color: #4ec9b0
+}
+
+.engagement {
+    display: flex;
+    justify-content: space-between;
+    color: #777;
+    font-size: 11px;
+    padding: 8px 2px
+}
+
+.post-actions {
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 4px
+}
+
+.post-actions button:hover {
+    background: #eee;
+    border-radius: 4px
+}
+
+.news,
+.suggestions {
+    padding: 18px
+}
+
+.news h2,
+.suggestions h2 {
+    font-size: 17px;
+    margin: 0
+}
+
+.muted {
+    font-size: 11px;
+    color: #777
+}
+
+.news a {
+    display: block;
+    color: #222;
+    font-size: 12px;
+    padding: 11px 0
+}
+
+.news a:hover {
+    color: var(--blue)
+}
+
+.news small {
+    display: block;
+    color: #777;
+    font-size: 10px
+}
+
+.suggest {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px
+}
+
+.suggest p {
+    font-size: 10px;
+    color: #777;
+    margin: 0
+}
+
+.suggest button {
+    border: 1px solid var(--blue);
+    background: #fff;
+    color: var(--blue);
+    border-radius: 20px;
+    padding: 4px 10px;
+    margin-top: 6px;
+    font-weight: 600;
+    font-size: 11px
+}
+
+.orange {
+    background: #f4dfd0;
+    color: #9b4d18
+}
+
+.purple {
+    background: #e3dcf4;
+    color: #6448a5
+}
+
+.green {
+    background: #dcebdc;
+    color: #31703b
+}
+
+.profile-layout {
+    width: min(1120px, 94%);
+    margin: 24px auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 20px
+}
+
+.profile-header {
+    position: relative
+}
+
+.profile-cover {
+    height: 190px;
+    background: linear-gradient(120deg, #4c7896, #b8d5e7)
+}
+
+.profile-avatar {
+    position: absolute;
+    top: 135px;
+    left: 25px;
+    width: 120px;
+    height: 120px;
+    font-size: 28px;
+    border: 4px solid white
+}
+
+.profile-info {
+    padding: 75px 28px 25px
+}
+
+.profile-title {
+    display: flex;
+    justify-content: space-between
+}
+
+.profile-title h1 {
+    font-size: 27px;
+    margin: 0
+}
+
+.profile-title p {
+    margin: 4px 0;
+    font-size: 14px
+}
+
+.edit-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid #777;
+    background: #fff
+}
+
+.bio {
+    max-width: 760px;
+    font-size: 13px;
+    margin: 20px 0
+}
+
+.profile-buttons {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap
+}
+
+.outline {
+    background: #fff;
+    border: 1px solid var(--blue);
+    color: var(--blue)
+}
+
+.content-panel {
+    padding: 24px;
+    margin-top: 15px
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.section-title h2 {
+    font-size: 21px;
+    margin: 0
+}
+
+.section-title button {
+    border: 0;
+    background: none;
+    font-size: 19px
+}
+
+.experience {
+    display: flex;
+    gap: 16px;
+    padding: 22px 0;
+    border-bottom: 1px solid #eee
+}
+
+.experience:last-child {
+    border-bottom: 0
+}
+
+.company-logo {
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    background: #e7f0f8;
+    color: var(--blue);
+    font-size: 23px;
+    font-weight: 700;
+    flex: none
+}
+
+.company-logo.dark {
+    background: #222;
+    color: #fff
+}
+
+.experience h3 {
+    margin: 0;
+    font-size: 16px
+}
+
+.experience p,
+.experience span {
+    font-size: 12px;
+    margin: 2px 0;
+    color: #555
+}
+
+.experience span {
+    color: #777
+}
+
+.exp-text {
+    margin-top: 12px !important
+}
+
+.skills-list {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 18px
+}
+
+.skills-list span {
+    border: 1px solid #aaa;
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 12px
+}
+
+.side-card {
+    padding: 18px;
+    margin-bottom: 15px
+}
+
+.side-card h3 {
+    font-size: 14px
+}
+
+.side-card p {
+    font-size: 12px
+}
+
+.person {
+    display: flex;
+    gap: 10px;
+    margin-top: 17px
+}
+
+.person p {
+    margin: 0;
+    color: #777
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0008;
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+    padding: 20px
+}
+
+.modal.show {
+    display: flex
+}
+
+.modal-card {
+    width: min(520px, 100%);
+    background: #fff;
+    border-radius: 9px;
+    padding: 25px;
+    position: relative
+}
+
+.modal-card h2 {
+    margin-top: 0
+}
+
+.modal-card textarea {
+    min-height: 130px;
+    resize: vertical
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    border: 0;
+    background: none;
+    font-size: 28px
+}
+
+.modal-footer {
+    text-align: right;
+    margin-top: 15px
+}
+
+@media(max-width:950px) {
+    .feed-layout {
+        grid-template-columns: 200px minmax(0, 1fr)
+    }
+
+    .right-col {
+        display: none
+    }
+
+    .search {
+        width: 220px
+    }
+
+    .profile-layout {
+        grid-template-columns: 1fr
+    }
+
+    .profile-side {
+        display: none
+    }
+
+    .nav-item {
+        min-width: 58px
+    }
+}
+
+@media(max-width:700px) {
+    .topbar {
+        height: 58px
+    }
+
+    .topbar-inner {
+        width: 92%
+    }
+
+    .search {
+        width: auto;
+        flex: 1
+    }
+
+    .main-nav {
+        display: none
+    }
+
+    .mobile-menu-btn {
+        display: block
+    }
+
+    .mobile-nav.show {
+        display: grid;
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+        position: fixed;
+        top: 58px;
+        left: 0;
+        right: 0;
+        z-index: 19;
+        box-shadow: 0 5px 15px #0002
+    }
+
+    .mobile-nav a {
+        padding: 14px 5%;
+        color: #444;
+        border-bottom: 1px solid #eee
+    }
+
+    .feed-layout {
+        display: block;
+        margin-top: 15px
+    }
+
+    .left-col {
+        display: none
+    }
+
+    .profile-layout {
+        width: 96%;
+        margin: 12px auto
+    }
+
+    .profile-cover {
+        height: 130px
+    }
+
+    .profile-avatar {
+        top: 82px;
+        width: 95px;
+        height: 95px
+    }
+
+    .profile-info {
+        padding: 60px 18px 20px
+    }
+
+    .profile-title {
+        gap: 15px
+    }
+
+    .profile-title h1 {
+        font-size: 23px
+    }
+
+    .profile-buttons .btn {
+        padding: 9px 15px
+    }
+
+    .auth-main {
+        padding: 25px 12px
+    }
+
+    .auth-card {
+        padding: 25px;
+        width: 100%;
+        max-width: 410px
+    }
+
+    .brand {
+        font-size: 31px
+    }
+
+    .compose-actions button {
+        font-size: 11px
+    }
+
+    .post-image {
+        height: 190px
+    }
+
+    .design-img {
+        font-size: 23px
+    }
+}
+
+@media(max-width:420px) {
+    .app-brand {
+        font-size: 26px
+    }
+
+    .search {
+        max-width: 150px
+    }
+
+    .post-actions button {
+        font-size: 11px;
+        padding: 8px 3px
+    }
+
+    .profile-title {
+        flex-direction: column
+    }
+
+    .profile-title .edit-btn {
+        position: absolute;
+        right: 18px;
+        top: 185px
+    }
+
+    .profile-buttons {
+        display: grid
+    }
+
+    .profile-buttons .btn {
+        width: 100%
+    }
+}
+
