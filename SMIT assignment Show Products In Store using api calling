@@ -1,0 +1,1636 @@
+===> HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Explorer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            Shop<span>Explorer</span>
+        </div>
+
+        <div class="search-area">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search products..."
+            >
+
+            <button id="searchBtn">
+                Search
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Hero -->
+    <section class="hero">
+
+        <div>
+            <p class="small-title">DUMMYJSON PRODUCTS API</p>
+
+            <h1>
+                Explore Amazing Products
+            </h1>
+
+            <p>
+                Search, filter and explore products using
+                DummyJSON API.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- Filters -->
+    <section class="filters">
+
+        <select id="categorySelect">
+
+            <option value="">
+                All Categories
+            </option>
+
+        </select>
+
+
+        <select id="limitSelect">
+
+            <option value="12">12 Products</option>
+            <option value="24">24 Products</option>
+            <option value="36">36 Products</option>
+
+        </select>
+
+
+        <button id="clearBtn">
+            Clear Filters
+        </button>
+
+    </section>
+
+
+    <!-- Loading -->
+    <div id="loading" class="loading">
+        Loading products...
+    </div>
+
+
+    <!-- Error -->
+    <div id="errorMessage" class="error-message"></div>
+
+
+    <!-- Products -->
+    <main id="productsContainer" class="products-container"></main>
+
+
+    <!-- No Products -->
+    <div id="noProducts" class="no-products">
+        No products found.
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+===> PRODUCT.HTML
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Product Details</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Shop<span>Explorer</span>
+        </div>
+
+        <a
+            href="index.html"
+            class="back-btn"
+        >
+            ← Back to Products
+        </a>
+
+    </nav>
+
+
+    <!-- Loading -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        Loading product...
+    </div>
+
+
+    <!-- Error -->
+
+    <div
+        id="errorMessage"
+        class="error-message"
+    ></div>
+
+
+    <!-- Product Details -->
+
+    <main
+        id="detailContainer"
+        class="detail-container"
+        style="display: none;"
+    >
+
+        <a
+            href="index.html"
+            class="back-btn"
+        >
+            ← Back to Products
+        </a>
+
+
+        <div
+            id="productDetail"
+            class="detail-grid"
+        ></div>
+
+    </main>
+
+
+    <script>
+
+        const API =
+            "https://dummyjson.com/products/";
+
+        const loading =
+            document.getElementById("loading");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+        const detailContainer =
+            document.getElementById("detailContainer");
+
+        const productDetail =
+            document.getElementById("productDetail");
+
+
+        /*
+            URL QUERY PRACTICE
+
+            Example:
+
+            product.html?id=2
+
+            URLSearchParams gets
+            the id from URL.
+        */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const productId =
+            params.get("id");
+
+
+        async function loadProduct() {
+
+            if (!productId) {
+
+                showError(
+                    "Product ID nahi mila."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                /*
+                    SINGLE PRODUCT API
+
+                    /products/2
+                */
+
+                const response =
+                    await fetch(
+                        API + productId
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Product not found"
+                    );
+
+                }
+
+
+                const product =
+                    await response.json();
+
+
+                showProduct(product);
+
+
+            } catch (error) {
+
+                showError(
+                    "Product details load nahi ho sakin."
+                );
+
+            } finally {
+
+                loading.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        function showProduct(product) {
+
+            detailContainer.style.display =
+                "block";
+
+
+            productDetail.innerHTML = `
+
+                <div class="detail-image">
+
+                    <img
+                        src="${product.images[0]}"
+                        alt="${escapeHTML(product.title)}"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <p class="detail-category">
+                        ${escapeHTML(product.category)}
+                    </p>
+
+
+                    <h1 class="detail-title">
+                        ${escapeHTML(product.title)}
+                    </h1>
+
+
+                    <p class="detail-description">
+                        ${escapeHTML(product.description)}
+                    </p>
+
+
+                    <div class="detail-price">
+                        $${product.price}
+                    </div>
+
+
+                    <div class="detail-info">
+
+                        <div class="detail-box">
+                            ⭐ Rating:
+                            ${product.rating}
+                        </div>
+
+
+                        <div class="detail-box">
+                            📦 Stock:
+                            ${product.stock}
+                        </div>
+
+
+                        <div class="detail-box">
+                            🏷 Brand:
+                            ${escapeHTML(
+                                product.brand || "N/A"
+                            )}
+                        </div>
+
+
+                        <div class="detail-box">
+                            📊 Discount:
+                            ${product.discountPercentage}%
+                        </div>
+
+
+                        <div class="detail-box">
+                            📏 Weight:
+                            ${product.weight}
+                        </div>
+
+
+                        <div class="detail-box">
+                            🆔 Product ID:
+                            ${product.id}
+                        </div>
+
+                    </div>
+
+
+                    <div class="tags">
+
+                        ${
+                            product.tags
+                            ? product.tags.map(tag => `
+                                <span class="tag">
+                                    #${escapeHTML(tag)}
+                                </span>
+                            `).join("")
+                            : ""
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        function showError(message) {
+
+            errorMessage.textContent =
+                message;
+
+            errorMessage.style.display =
+                "block";
+
+        }
+
+
+        function escapeHTML(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                text;
+
+            return div.innerHTML;
+
+        }
+
+
+        loadProduct();
+
+    </script>
+
+</body>
+
+</html>
+
+
+
+====> CSS
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f7fb;
+    color: #222;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    background: #ffffff;
+
+    min-height: 75px;
+
+    padding: 15px 7%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+.logo {
+    font-size: 25px;
+
+    font-weight: 800;
+
+    color: #ff4d4d;
+
+    white-space: nowrap;
+}
+
+
+.logo span {
+    color: #222;
+}
+
+
+/* Search */
+
+.search-area {
+    display: flex;
+
+    width: 500px;
+
+    max-width: 100%;
+}
+
+
+.search-area input {
+    width: 100%;
+
+    padding: 13px 16px;
+
+    border: 1px solid #ddd;
+
+    border-right: none;
+
+    outline: none;
+
+    font-size: 15px;
+
+    border-radius: 7px 0 0 7px;
+}
+
+
+.search-area input:focus {
+    border-color: #ff4d4d;
+}
+
+
+.search-area button {
+    border: none;
+
+    padding: 0 22px;
+
+    background: #ff4d4d;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    border-radius: 0 7px 7px 0;
+}
+
+
+.search-area button:hover {
+    background: #e63c3c;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 300px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 50px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #fff0f0,
+        #ffffff
+    );
+}
+
+
+.small-title {
+    color: #ff4d4d;
+
+    font-weight: bold;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 15px;
+}
+
+
+.hero h1 {
+    font-size: 48px;
+
+    margin-bottom: 15px;
+}
+
+
+.hero p:last-child {
+    color: #666;
+
+    font-size: 17px;
+}
+
+
+/* =========================
+   FILTERS
+========================= */
+
+.filters {
+    width: 86%;
+
+    max-width: 1200px;
+
+    margin: 30px auto;
+
+    display: flex;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+
+.filters select,
+.filters button {
+    padding: 12px 16px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    background: white;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+
+.filters button {
+    background: #222;
+
+    color: white;
+
+    border-color: #222;
+}
+
+
+.filters button:hover {
+    background: #444;
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products-container {
+    width: 86%;
+
+    max-width: 1200px;
+
+    margin: 20px auto 60px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 22px;
+}
+
+
+.product-card {
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.07);
+
+    transition: 0.3s;
+}
+
+
+.product-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Product Image */
+
+.product-image {
+    width: 100%;
+
+    height: 210px;
+
+    background: #f5f5f5;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 15px;
+}
+
+
+.product-image img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    transition: 0.3s;
+}
+
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+
+/* Product Info */
+
+.product-info {
+    padding: 18px;
+}
+
+
+.category {
+    color: #ff4d4d;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    margin-bottom: 8px;
+}
+
+
+.product-title {
+    font-size: 18px;
+
+    margin-bottom: 8px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.description {
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    height: 42px;
+
+    overflow: hidden;
+
+    margin-bottom: 12px;
+}
+
+
+.product-bottom {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+
+.price {
+    font-size: 21px;
+
+    font-weight: bold;
+
+    color: #222;
+}
+
+
+.rating {
+    color: #f5a623;
+
+    font-size: 14px;
+}
+
+
+.stock {
+    font-size: 13px;
+
+    color: #4caf50;
+
+    margin-bottom: 12px;
+}
+
+
+.details-btn {
+    display: block;
+
+    width: 100%;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    background: #ff4d4d;
+
+    color: white;
+
+    padding: 11px;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+.details-btn:hover {
+    background: #e63c3c;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+    text-align: center;
+
+    padding: 40px;
+
+    font-size: 18px;
+
+    color: #666;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error-message {
+    width: 86%;
+
+    max-width: 900px;
+
+    margin: 20px auto;
+
+    padding: 15px;
+
+    text-align: center;
+
+    background: #ffe5e5;
+
+    color: #d32f2f;
+
+    border-radius: 7px;
+
+    display: none;
+}
+
+
+/* =========================
+   NO PRODUCTS
+========================= */
+
+.no-products {
+    text-align: center;
+
+    padding: 50px;
+
+    color: #777;
+
+    display: none;
+}
+
+
+/* =========================
+   DETAIL PAGE
+========================= */
+
+.detail-container {
+    width: 86%;
+
+    max-width: 1100px;
+
+    margin: 50px auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.back-btn {
+    display: inline-block;
+
+    text-decoration: none;
+
+    color: #ff4d4d;
+
+    font-weight: bold;
+
+    margin-bottom: 30px;
+}
+
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 45px;
+
+    align-items: center;
+}
+
+
+.detail-image {
+    background: #f7f7f7;
+
+    border-radius: 12px;
+
+    height: 450px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+}
+
+
+.detail-image img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+.detail-category {
+    color: #ff4d4d;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    font-size: 13px;
+}
+
+
+.detail-title {
+    font-size: 38px;
+
+    margin: 12px 0;
+}
+
+
+.detail-description {
+    color: #666;
+
+    line-height: 1.8;
+
+    margin: 20px 0;
+}
+
+
+.detail-price {
+    font-size: 32px;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+
+.detail-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+
+.detail-box {
+    padding: 14px;
+
+    background: #f6f6f6;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+}
+
+
+.tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 20px;
+}
+
+
+.tag {
+    padding: 7px 12px;
+
+    background: #ffe7e7;
+
+    color: #ff4d4d;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+    .products-container {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .search-area {
+        width: 100%;
+    }
+
+    .products-container {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .products-container {
+        grid-template-columns: 1fr;
+
+        width: 92%;
+    }
+
+    .filters {
+        width: 92%;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .detail-container {
+        width: 92%;
+
+        padding: 20px;
+    }
+
+    .detail-title {
+        font-size: 28px;
+    }
+
+    .detail-image {
+        height: 300px;
+    }
+
+}
+
+
+====> JAVA SCRIPT
+
+const productsContainer =
+    document.getElementById("productsContainer");
+
+const loading =
+    document.getElementById("loading");
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+const noProducts =
+    document.getElementById("noProducts");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const searchBtn =
+    document.getElementById("searchBtn");
+
+const categorySelect =
+    document.getElementById("categorySelect");
+
+const limitSelect =
+    document.getElementById("limitSelect");
+
+const clearBtn =
+    document.getElementById("clearBtn");
+
+
+/* =========================
+   API
+========================= */
+
+const API =
+    "https://dummyjson.com/products";
+
+
+/* =========================
+   LOAD PRODUCTS
+========================= */
+
+async function loadProducts() {
+
+    showLoading();
+
+    hideError();
+
+    try {
+
+        /*
+            Query parameters:
+
+            ?limit=12
+            ?skip=0
+        */
+
+        const limit =
+            limitSelect.value;
+
+        const url =
+            `${API}?limit=${limit}&skip=0`;
+
+
+        const response =
+            await fetch(url);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to fetch products"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        displayProducts(data.products);
+
+
+    } catch (error) {
+
+        showError(
+            "Products load nahi ho sake. Internet connection check karein."
+        );
+
+    } finally {
+
+        hideLoading();
+
+    }
+}
+
+
+/* =========================
+   DISPLAY PRODUCTS
+========================= */
+
+function displayProducts(products) {
+
+    productsContainer.innerHTML = "";
+
+    noProducts.style.display = "none";
+
+
+    if (!products || products.length === 0) {
+
+        noProducts.style.display = "block";
+
+        return;
+
+    }
+
+
+    products.forEach(product => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "product-card";
+
+
+        card.innerHTML = `
+
+            <div class="product-image">
+
+                <img
+                    src="${product.thumbnail}"
+                    alt="${escapeHTML(product.title)}"
+                >
+
+            </div>
+
+
+            <div class="product-info">
+
+                <p class="category">
+                    ${escapeHTML(product.category)}
+                </p>
+
+
+                <h2 class="product-title">
+                    ${escapeHTML(product.title)}
+                </h2>
+
+
+                <p class="description">
+                    ${escapeHTML(product.description)}
+                </p>
+
+
+                <div class="product-bottom">
+
+                    <span class="price">
+                        $${product.price}
+                    </span>
+
+                    <span class="rating">
+                        ⭐ ${product.rating}
+                    </span>
+
+                </div>
+
+
+                <p class="stock">
+                    ✓ ${product.stock} in stock
+                </p>
+
+
+                <a
+                    href="product.html?id=${product.id}"
+                    class="details-btn"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        `;
+
+
+        productsContainer.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================
+   SEARCH PRODUCTS
+========================= */
+
+async function searchProducts() {
+
+    const searchValue =
+        searchInput.value.trim();
+
+
+    if (searchValue === "") {
+
+        loadProducts();
+
+        return;
+
+    }
+
+
+    showLoading();
+
+    hideError();
+
+
+    try {
+
+        /*
+            QUERY PRACTICE
+
+            /products/search?q=phone
+        */
+
+        const url =
+            `${API}/search?q=${encodeURIComponent(searchValue)}`;
+
+
+        const response =
+            await fetch(url);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Search failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        displayProducts(data.products);
+
+
+    } catch (error) {
+
+        showError(
+            "Search failed. Please try again."
+        );
+
+    } finally {
+
+        hideLoading();
+
+    }
+
+}
+
+
+/* =========================
+   LOAD CATEGORIES
+========================= */
+
+async function loadCategories() {
+
+    try {
+
+        /*
+            API endpoint for categories
+        */
+
+        const response =
+            await fetch(
+                `${API}/categories`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Categories failed"
+            );
+
+        }
+
+
+        const categories =
+            await response.json();
+
+
+        categories.forEach(category => {
+
+            const option =
+                document.createElement("option");
+
+            /*
+                category can be string
+            */
+
+            option.value =
+                typeof category === "string"
+                    ? category
+                    : category.slug;
+
+            option.textContent =
+                typeof category === "string"
+                    ? category
+                    : category.name;
+
+
+            categorySelect.appendChild(option);
+
+        });
+
+
+    } catch (error) {
+
+        console.log(
+            "Category loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================
+   CATEGORY FILTER
+========================= */
+
+async function filterCategory() {
+
+    const category =
+        categorySelect.value;
+
+
+    if (category === "") {
+
+        loadProducts();
+
+        return;
+
+    }
+
+
+    showLoading();
+
+    hideError();
+
+
+    try {
+
+        /*
+            QUERY / PATH PRACTICE
+
+            /products/category/smartphones
+        */
+
+        const url =
+            `${API}/category/${encodeURIComponent(category)}`;
+
+
+        const response =
+            await fetch(url);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Category request failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        displayProducts(data.products);
+
+
+    } catch (error) {
+
+        showError(
+            "Category products load nahi ho sake."
+        );
+
+    } finally {
+
+        hideLoading();
+
+    }
+
+}
+
+
+/* =========================
+   EVENTS
+========================= */
+
+searchBtn.addEventListener(
+    "click",
+    searchProducts
+);
+
+
+searchInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            searchProducts();
+
+        }
+
+    }
+);
+
+
+categorySelect.addEventListener(
+    "change",
+    filterCategory
+);
+
+
+limitSelect.addEventListener(
+    "change",
+    loadProducts
+);
+
+
+clearBtn.addEventListener(
+    "click",
+    function() {
+
+        searchInput.value = "";
+
+        categorySelect.value = "";
+
+        limitSelect.value = "12";
+
+        loadProducts();
+
+    }
+);
+
+
+/* =========================
+   UI FUNCTIONS
+========================= */
+
+function showLoading() {
+
+    loading.style.display =
+        "block";
+
+}
+
+
+function hideLoading() {
+
+    loading.style.display =
+        "none";
+
+}
+
+
+function showError(message) {
+
+    errorMessage.textContent =
+        message;
+
+    errorMessage.style.display =
+        "block";
+
+}
+
+
+function hideError() {
+
+    errorMessage.textContent = "";
+
+    errorMessage.style.display =
+        "none";
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadCategories();
+
+loadProducts();
