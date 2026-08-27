@@ -1,0 +1,858 @@
+===> HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Assignment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Register Form -->
+    <div class="form-container" id="registerBox">
+
+        <h1>Facebook</h1>
+        <h2>Register</h2>
+
+        <input
+            type="text"
+            id="registerName"
+            placeholder="Enter Name"
+        >
+
+        <input
+            type="email"
+            id="registerEmail"
+            placeholder="Enter Email"
+        >
+
+        <div class="password-box">
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Enter Password"
+            >
+
+            <button type="button" onclick="toggleRegisterPassword()">
+                👁️
+            </button>
+        </div>
+
+        <button class="main-btn" onclick="registerUser()">
+            Register
+        </button>
+
+        <p id="registerMessage"></p>
+
+        <p>
+            Already have an account?
+            <span onclick="showLogin()">Login</span>
+        </p>
+
+    </div>
+
+
+    <!-- Login Form -->
+    <div class="form-container hidden" id="loginBox">
+
+        <h1>Facebook</h1>
+        <h2>Login</h2>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter Email"
+        >
+
+        <div class="password-box">
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter Password"
+            >
+
+            <button type="button" onclick="toggleLoginPassword()">
+                👁️
+            </button>
+        </div>
+
+        <button class="main-btn" onclick="loginUser()">
+            Login
+        </button>
+
+        <p id="loginMessage"></p>
+
+        <p>
+            Don't have an account?
+            <span onclick="showRegister()">Register</span>
+        </p>
+
+    </div>
+
+
+    <!-- Facebook Home -->
+    <div class="facebook-page hidden" id="facebookPage">
+
+        <div class="navbar">
+            <h2>Facebook</h2>
+
+            <button onclick="logoutUser()">
+                Logout
+            </button>
+        </div>
+
+        <div class="post-box">
+
+            <h3 id="welcomeUser"></h3>
+
+            <textarea
+                id="postText"
+                placeholder="What's on your mind?"
+            ></textarea>
+
+            <button onclick="createPost()">
+                Post
+            </button>
+
+        </div>
+
+        <div id="postsContainer"></div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+
+===> CSS
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f0f2f5;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-container {
+    width: 380px;
+    max-width: 90%;
+    background: white;
+
+    margin: 70px auto;
+    padding: 30px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+}
+
+.form-container h1 {
+    text-align: center;
+    color: #1877f2;
+
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+.form-container > input {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-bottom: 12px;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.form-container > input:focus {
+    border-color: #1877f2;
+}
+
+
+/* =========================
+   PASSWORD
+========================= */
+
+.password-box {
+    width: 100%;
+
+    display: flex;
+
+    margin-bottom: 12px;
+}
+
+.password-box input {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #ddd;
+    border-right: none;
+
+    border-radius: 6px 0 0 6px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.password-box button {
+    width: 50px;
+
+    border: 1px solid #ddd;
+
+    background: white;
+
+    cursor: pointer;
+
+    border-radius: 0 6px 6px 0;
+}
+
+
+/* =========================
+   MAIN BUTTON
+========================= */
+
+.main-btn {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    background: #1877f2;
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.main-btn:hover {
+    background: #166fe5;
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+#registerMessage,
+#loginMessage {
+    text-align: center;
+
+    margin-top: 12px;
+
+    color: red;
+}
+
+.switch-text {
+    text-align: center;
+
+    margin-top: 18px;
+
+    color: #666;
+}
+
+.switch-text span {
+    color: #1877f2;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   FACEBOOK PAGE
+========================= */
+
+.facebook-page {
+    min-height: 100vh;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    width: 100%;
+
+    background: white;
+
+    padding: 15px 8%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h2 {
+    color: #1877f2;
+
+    font-size: 30px;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+
+    border: none;
+
+    background: #e63946;
+
+    color: white;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.logout-btn:hover {
+    background: #c92f3b;
+}
+
+
+/* =========================
+   CREATE POST
+========================= */
+
+.post-create {
+    width: 600px;
+
+    max-width: 90%;
+
+    background: white;
+
+    margin: 30px auto 20px;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.post-create h3 {
+    margin-bottom: 15px;
+
+    color: #333;
+}
+
+.post-create textarea {
+    width: 100%;
+
+    height: 100px;
+
+    padding: 12px;
+
+    resize: none;
+
+    border: 1px solid #ddd;
+
+    border-radius: 6px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.post-create textarea:focus {
+    border-color: #1877f2;
+}
+
+.post-btn {
+    margin-top: 10px;
+
+    width: 100%;
+
+    padding: 11px;
+
+    border: none;
+
+    background: #1877f2;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.post-btn:hover {
+    background: #166fe5;
+}
+
+
+/* =========================
+   POSTS
+========================= */
+
+.posts-section {
+    width: 600px;
+
+    max-width: 90%;
+
+    margin: 30px auto;
+}
+
+.posts-section > h2 {
+    margin-bottom: 15px;
+
+    color: #333;
+}
+
+.post {
+    background: white;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.post h3 {
+    color: #1877f2;
+
+    margin-bottom: 10px;
+}
+
+.post p {
+    color: #444;
+
+    line-height: 1.6;
+
+    word-wrap: break-word;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    .form-container {
+        margin: 40px auto;
+        padding: 25px 20px;
+    }
+
+    .navbar {
+        padding: 15px 5%;
+    }
+
+    .navbar h2 {
+        font-size: 25px;
+    }
+
+    .post-create,
+    .posts-section {
+        max-width: 92%;
+    }
+
+}
+
+
+===> JAVA SCRIPT
+
+// ==========================================
+// REGISTER USER
+// ==========================================
+
+function registerUser() {
+
+    let name = document.getElementById("registerName").value;
+    let email = document.getElementById("registerEmail").value;
+    let password = document.getElementById("registerPassword").value;
+
+    let message = document.getElementById("registerMessage");
+
+    if (name === "" || email === "" || password === "") {
+
+        message.style.color = "red";
+        message.textContent = "Please fill all fields.";
+
+        return;
+    }
+
+    let user = {
+        name: name,
+        email: email,
+        password: password
+    };
+
+    localStorage.setItem("user", JSON.stringify(user));
+
+    message.style.color = "green";
+    message.textContent = "Registration successful!";
+
+    document.getElementById("registerName").value = "";
+    document.getElementById("registerEmail").value = "";
+    document.getElementById("registerPassword").value = "";
+
+}
+
+
+// ==========================================
+// LOGIN USER
+// ==========================================
+
+function loginUser() {
+
+    let email = document.getElementById("loginEmail").value;
+    let password = document.getElementById("loginPassword").value;
+
+    let message = document.getElementById("loginMessage");
+
+    let savedUser = localStorage.getItem("user");
+
+    if (savedUser === null) {
+
+        message.textContent = "Please register first.";
+
+        return;
+    }
+
+    let user = JSON.parse(savedUser);
+
+    if (
+        email === user.email &&
+        password === user.password
+    ) {
+
+        localStorage.setItem("login", "true");
+
+        showFacebookPage();
+
+    } else {
+
+        message.textContent = "Invalid email or password.";
+
+    }
+
+}
+
+
+// ==========================================
+// SHOW FACEBOOK PAGE
+// ==========================================
+
+function showFacebookPage() {
+
+    document
+        .getElementById("registerBox")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginBox")
+        .classList.add("hidden");
+
+    document
+        .getElementById("facebookPage")
+        .classList.remove("hidden");
+
+
+    let user = JSON.parse(
+        localStorage.getItem("user")
+    );
+
+    document.getElementById("welcomeUser").textContent =
+        "Welcome, " + user.name;
+
+
+    // Show existing posts
+    showPosts();
+
+}
+
+
+// ==========================================
+// SHOW LOGIN FORM
+// ==========================================
+
+function showLogin() {
+
+    document
+        .getElementById("registerBox")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginBox")
+        .classList.remove("hidden");
+
+}
+
+
+// ==========================================
+// SHOW REGISTER FORM
+// ==========================================
+
+function showRegister() {
+
+    document
+        .getElementById("loginBox")
+        .classList.add("hidden");
+
+    document
+        .getElementById("registerBox")
+        .classList.remove("hidden");
+
+}
+
+
+// ==========================================
+// USER CAN POST
+// ==========================================
+
+function createPost() {
+
+    let postText =
+        document.getElementById("postText").value.trim();
+
+
+    if (postText === "") {
+
+        alert("Please write something.");
+
+        return;
+    }
+
+
+    let user = JSON.parse(
+        localStorage.getItem("user")
+    );
+
+
+    let post = {
+
+        name: user.name,
+
+        text: postText
+
+    };
+
+
+    let posts =
+        JSON.parse(localStorage.getItem("posts")) || [];
+
+
+    posts.push(post);
+
+
+    localStorage.setItem(
+        "posts",
+        JSON.stringify(posts)
+    );
+
+
+    // Clear textarea
+
+    document.getElementById("postText").value = "";
+
+
+    // Show new post in UI
+
+    showPosts();
+
+}
+
+
+// ==========================================
+// POST SHOW IN UI
+// ==========================================
+
+function showPosts() {
+
+    let postsContainer =
+        document.getElementById("postsContainer");
+
+
+    postsContainer.innerHTML = "";
+
+
+    let posts =
+        JSON.parse(localStorage.getItem("posts")) || [];
+
+
+    if (posts.length === 0) {
+
+        postsContainer.innerHTML = `
+            <div class="post">
+                <p>No posts yet.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    posts.forEach(function(post) {
+
+        let postDiv =
+            document.createElement("div");
+
+
+        postDiv.className = "post";
+
+
+        postDiv.innerHTML = `
+            <h3>${post.name}</h3>
+            <p>${post.text}</p>
+        `;
+
+
+        postsContainer.appendChild(postDiv);
+
+    });
+
+}
+
+
+// ==========================================
+// LOGOUT
+// ==========================================
+
+function logoutUser() {
+
+    localStorage.removeItem("login");
+
+
+    document
+        .getElementById("facebookPage")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("loginBox")
+        .classList.remove("hidden");
+
+
+    document.getElementById("loginEmail").value = "";
+    document.getElementById("loginPassword").value = "";
+
+}
+
+
+// ==========================================
+// REGISTER PASSWORD EYE
+// ==========================================
+
+function toggleRegisterPassword() {
+
+    let password =
+        document.getElementById("registerPassword");
+
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+    } else {
+
+        password.type = "password";
+
+    }
+
+}
+
+
+// ==========================================
+// LOGIN PASSWORD EYE
+// ==========================================
+
+function toggleLoginPassword() {
+
+    let password =
+        document.getElementById("loginPassword");
+
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+    } else {
+
+        password.type = "password";
+
+    }
+
+}
+
+
+// ==========================================
+// CHECK LOGIN
+// ==========================================
+
+window.onload = function() {
+
+    let login =
+        localStorage.getItem("login");
+
+
+    if (login === "true") {
+
+        showFacebookPage();
+
+    } else {
+
+        showRegister();
+
+    }
+
+};
