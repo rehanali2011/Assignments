@@ -1,0 +1,865 @@
+===> HTML
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Post Explorer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            Post Explorer
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search posts...">
+
+            <button id="searchBtn">
+                Search
+            </button>
+        </div>
+
+    </nav>
+
+
+    <!-- Main -->
+    <main>
+
+        <section class="hero">
+            <h1>Explore Posts</h1>
+
+            <p>
+                Discover interesting posts and read their complete details.
+            </p>
+        </section>
+
+
+        <!-- Loading -->
+        <div id="loading" class="loading">
+            Loading posts...
+        </div>
+
+
+        <!-- Error -->
+        <div id="errorMessage" class="error-message"></div>
+
+
+        <!-- Posts -->
+        <section id="postsContainer" class="posts-container"></section>
+
+
+        <!-- No Results -->
+        <div id="noResults" class="no-results">
+            No posts found.
+        </div>
+
+    </main>
+
+
+    <!-- Modal -->
+    <div id="postModal" class="modal">
+
+        <div class="modal-content">
+
+            <button id="closeModal" class="close-btn">
+                ×
+            </button>
+
+            <div id="modalContent"></div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+
+
+===> CSS
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f6f8;
+    color: #222;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    padding: 18px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #e63946;
+    white-space: nowrap;
+}
+
+
+/* Search */
+
+.search-box {
+    display: flex;
+    width: 450px;
+    max-width: 100%;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-right: none;
+    outline: none;
+    font-size: 15px;
+    border-radius: 6px 0 0 6px;
+}
+
+.search-box input:focus {
+    border-color: #e63946;
+}
+
+.search-box button {
+    padding: 12px 20px;
+    border: none;
+    background: #e63946;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 0 6px 6px 0;
+}
+
+.search-box button:hover {
+    background: #c92f3c;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    text-align: center;
+    padding: 50px 20px 30px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #666;
+    font-size: 16px;
+}
+
+
+/* =========================
+   POSTS
+========================= */
+
+.posts-container {
+    width: 86%;
+    max-width: 1200px;
+    margin: 20px auto 50px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.post-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.12);
+}
+
+.post-number {
+    display: inline-block;
+    color: #e63946;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.post-title {
+    font-size: 21px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.post-body {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.post-info {
+    display: flex;
+    gap: 15px;
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.read-more {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 6px;
+    background: #e63946;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.read-more:hover {
+    background: #c92f3c;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+    text-align: center;
+    font-size: 18px;
+    padding: 30px;
+    color: #555;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error-message {
+    width: 86%;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #ffe5e5;
+    color: #c62828;
+    border-radius: 6px;
+    text-align: center;
+    display: none;
+}
+
+
+/* =========================
+   NO RESULTS
+========================= */
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #777;
+    display: none;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    width: 600px;
+    max-width: 100%;
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+    border-radius: 10px;
+    padding: 30px;
+
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+
+    width: 35px;
+    height: 35px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #e63946;
+    color: white;
+
+    font-size: 24px;
+    line-height: 35px;
+
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background: #c92f3c;
+}
+
+.modal-title {
+    font-size: 28px;
+    margin: 20px 0 15px;
+    padding-left: 30px;
+}
+
+.modal-body {
+    color: #555;
+    line-height: 1.8;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.modal-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    background: #f5f5f5;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    background: #ffe8ea;
+    color: #e63946;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .posts-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .posts-container {
+        grid-template-columns: 1fr;
+        width: 92%;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .navbar {
+        padding: 15px 4%;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .modal-content {
+        padding: 25px 20px;
+    }
+
+    .modal-title {
+        font-size: 23px;
+    }
+}
+
+
+====> JAVA SCRIPT
+
+const postsContainer = document.getElementById("postsContainer");
+
+const loading = document.getElementById("loading");
+
+const errorMessage = document.getElementById("errorMessage");
+
+const noResults = document.getElementById("noResults");
+
+const searchInput = document.getElementById("searchInput");
+
+const searchBtn = document.getElementById("searchBtn");
+
+const postModal = document.getElementById("postModal");
+
+const closeModal = document.getElementById("closeModal");
+
+const modalContent = document.getElementById("modalContent");
+
+
+// API URLs
+
+const ALL_POSTS_API = "https://dummyjson.com/posts";
+
+const SEARCH_API = "https://dummyjson.com/posts/search?q=";
+
+const SINGLE_POST_API = "https://dummyjson.com/posts/";
+
+
+// ================================
+// LOAD ALL POSTS
+// ================================
+
+async function loadPosts() {
+
+    showLoading();
+
+    clearError();
+
+    try {
+
+        const response = await fetch(ALL_POSTS_API);
+
+        if (!response.ok) {
+            throw new Error("Failed to load posts.");
+        }
+
+        const data = await response.json();
+
+        displayPosts(data.posts);
+
+    } catch (error) {
+
+        showError(
+            "Unable to load posts. Please check your internet connection and try again."
+        );
+
+    } finally {
+
+        hideLoading();
+
+    }
+}
+
+
+// ================================
+// DISPLAY POSTS
+// ================================
+
+function displayPosts(posts) {
+
+    postsContainer.innerHTML = "";
+
+    noResults.style.display = "none";
+
+
+    if (!posts || posts.length === 0) {
+
+        noResults.style.display = "block";
+
+        return;
+    }
+
+
+    posts.forEach(post => {
+
+        const card = document.createElement("div");
+
+        card.className = "post-card";
+
+
+        card.innerHTML = `
+
+            <span class="post-number">
+                Post #${post.id}
+            </span>
+
+            <h2 class="post-title">
+                ${escapeHTML(post.title)}
+            </h2>
+
+            <p class="post-body">
+                ${escapeHTML(post.body)}
+            </p>
+
+            <div class="post-info">
+
+                <span>
+                    👍 ${post.reactions?.likes || 0}
+                </span>
+
+                <span>
+                    👎 ${post.reactions?.dislikes || 0}
+                </span>
+
+                <span>
+                    👁 ${post.views || 0}
+                </span>
+
+            </div>
+
+            <button
+                class="read-more"
+                onclick="openPost(${post.id})"
+            >
+                Read More
+            </button>
+
+        `;
+
+
+        postsContainer.appendChild(card);
+
+    });
+}
+
+
+// ================================
+// LOAD SINGLE POST
+// ================================
+
+async function openPost(id) {
+
+    modalContent.innerHTML = `
+        <p class="loading">Loading post...</p>
+    `;
+
+    postModal.classList.add("active");
+
+
+    try {
+
+        const response = await fetch(
+            SINGLE_POST_API + id
+        );
+
+
+        if (!response.ok) {
+            throw new Error("Post not found.");
+        }
+
+
+        const post = await response.json();
+
+
+        modalContent.innerHTML = `
+
+            <h2 class="modal-title">
+                ${escapeHTML(post.title)}
+            </h2>
+
+
+            <p class="modal-body">
+                ${escapeHTML(post.body)}
+            </p>
+
+
+            <div class="modal-info">
+
+                <div class="info-box">
+                    🆔 Post ID: ${post.id}
+                </div>
+
+                <div class="info-box">
+                    👁 Views: ${post.views || 0}
+                </div>
+
+                <div class="info-box">
+                    👍 Likes: ${post.reactions?.likes || 0}
+                </div>
+
+                <div class="info-box">
+                    👎 Dislikes: ${post.reactions?.dislikes || 0}
+                </div>
+
+                <div class="info-box">
+                    👤 User ID: ${post.userId}
+                </div>
+
+            </div>
+
+
+            <h3>Tags</h3>
+
+            <div class="tags">
+
+                ${post.tags && post.tags.length > 0
+                ? post.tags.map(tag => `
+                        <span class="tag">
+                            #${escapeHTML(tag)}
+                        </span>
+                    `).join("")
+                : "<span>No tags</span>"
+            }
+
+            </div>
+
+        `;
+
+
+    } catch (error) {
+
+        modalContent.innerHTML = `
+            <p class="error-message" style="display:block;">
+                Unable to load this post.
+            </p>
+        `;
+
+    }
+
+}
+
+
+// ================================
+// SEARCH POSTS
+// ================================
+
+async function searchPosts() {
+
+    const searchText = searchInput.value.trim();
+
+
+    // Empty search = load all posts
+
+    if (searchText === "") {
+
+        loadPosts();
+
+        return;
+    }
+
+
+    showLoading();
+
+    clearError();
+
+
+    try {
+
+        const response = await fetch(
+            SEARCH_API + encodeURIComponent(searchText)
+        );
+
+
+        if (!response.ok) {
+            throw new Error("Search failed.");
+        }
+
+
+        const data = await response.json();
+
+
+        displayPosts(data.posts);
+
+
+    } catch (error) {
+
+        showError(
+            "Search failed. Please try again."
+        );
+
+    } finally {
+
+        hideLoading();
+
+    }
+
+}
+
+
+// ================================
+// SEARCH BUTTON
+// ================================
+
+searchBtn.addEventListener(
+    "click",
+    searchPosts
+);
+
+
+// ================================
+// SEARCH USING ENTER
+// ================================
+
+searchInput.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Enter") {
+
+            searchPosts();
+
+        }
+
+    }
+);
+
+
+// ================================
+// CLOSE MODAL
+// ================================
+
+closeModal.addEventListener(
+    "click",
+    function () {
+
+        postModal.classList.remove("active");
+
+    }
+);
+
+
+// ================================
+// CLOSE MODAL OUTSIDE
+// ================================
+
+postModal.addEventListener(
+    "click",
+    function (event) {
+
+        if (event.target === postModal) {
+
+            postModal.classList.remove("active");
+
+        }
+
+    }
+);
+
+
+// ================================
+// LOADING FUNCTIONS
+// ================================
+
+function showLoading() {
+
+    loading.style.display = "block";
+
+}
+
+function hideLoading() {
+
+    loading.style.display = "none";
+
+}
+
+
+// ================================
+// ERROR FUNCTIONS
+// ================================
+
+function showError(message) {
+
+    errorMessage.textContent = message;
+
+    errorMessage.style.display = "block";
+
+}
+
+function clearError() {
+
+    errorMessage.textContent = "";
+
+    errorMessage.style.display = "none";
+
+}
+
+
+// ================================
+// HTML SECURITY
+// ================================
+
+function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+// ================================
+// START APPLICATION
+// ================================
+
+loadPosts();
