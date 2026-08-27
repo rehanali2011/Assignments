@@ -1,0 +1,780 @@
+===> HTML
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Assignment</title>
+</head>
+<body>
+
+    <h1>Higher Order Functins</h1>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+====> JAVA script
+
+
+// HIGHER ORDER FUNCTIONS
+
+// 1. Higher Order Function kya hota hai?
+// Jo function kisi function ko parameter me le
+// ya function return kare, usay Higher Order Function kehte hain.
+
+
+// 2. Kya map() Higher Order Function hai?
+
+let numbers1 = [1, 2, 3];
+
+let answer1 = numbers1.map(function(num) {
+    return num * 2;
+});
+
+console.log(answer1);
+
+
+// 3. Kya forEach() value return karta hai?
+
+let numbers2 = [1, 2, 3];
+
+let answer2 = numbers2.forEach(function(num) {
+    console.log(num);
+});
+
+console.log(answer2);
+
+
+// 4. Higher Order Function example
+
+function calculate(a, b, operation) {
+    return operation(a, b);
+}
+
+let result = calculate(10, 5, function(a, b) {
+    return a + b;
+});
+
+console.log(result);
+
+
+// 5. Callback Function kya hota hai?
+// Jo function kisi doosre function ko argument ke taur par diya jaye,
+// usay Callback Function kehte hain.
+
+function greet(name) {
+    console.log("Hello " + name);
+}
+
+function userName(callback) {
+    callback("Ali");
+}
+
+userName(greet);
+
+
+// 6. Ek function jo doosre function ko parameter me le
+
+function myFunction(callback) {
+    callback();
+}
+
+myFunction(function() {
+    console.log("This is callback function");
+});
+
+
+// 7. filter() kis liye hota hai?
+// filter() array me se required elements nikalta hai.
+
+
+// 8. reduce() ka basic purpose kya hai?
+// reduce() array ke elements ko combine karke single value banata hai.
+
+
+// 9. find() aur filter() me difference
+// find() sirf pehla matching element deta hai.
+// filter() saare matching elements ka array deta hai.
+
+
+// 10. map() aur forEach() me difference
+// map() new array return karta hai.
+// forEach() sirf array ke elements par loop karta hai.
+
+
+
+// ==========================================
+// MAP()
+// ==========================================
+
+// 1. Numbers ko double karo
+
+let nums = [1, 2, 3, 4];
+
+let doubleNumbers = nums.map(function(num) {
+    return num * 2;
+});
+
+console.log(doubleNumbers);
+
+
+// 2. Names uppercase
+
+let names = ["Ali", "Ahmed", "Usman", "Rehan"];
+
+let upperNames = names.map(function(name) {
+    return name.toUpperCase();
+});
+
+console.log(upperNames);
+
+
+// 3. Prices me 10 add karo
+
+let prices = [50, 100, 150, 200];
+
+let newPrices = prices.map(function(price) {
+    return price + 10;
+});
+
+console.log(newPrices);
+
+
+// 4. Students ke names ke sath Mr. add karo
+
+let studentsNames = ["Ali", "Ahmed", "Usman"];
+
+let newStudentsNames = studentsNames.map(function(name) {
+    return "Mr. " + name;
+});
+
+console.log(newStudentsNames);
+
+
+// 5. Numbers ko square me convert karo
+
+let numbers3 = [2, 3, 4, 5];
+
+let squareNumbers = numbers3.map(function(num) {
+    return num * num;
+});
+
+console.log(squareNumbers);
+
+
+
+// ==========================================
+// FILTER()
+// ==========================================
+
+// 1. Even numbers
+
+let numbers4 = [1, 2, 3, 4, 5, 6];
+
+let evenNumbers = numbers4.filter(function(num) {
+    return num % 2 === 0;
+});
+
+console.log(evenNumbers);
+
+
+// 2. Names length 5 se zyada
+
+let names2 = ["Ali", "Ahmed", "Usman", "Rehan", "Hamza"];
+
+let longNames = names2.filter(function(name) {
+    return name.length > 5;
+});
+
+console.log(longNames);
+
+
+// 3. Prices greater than 100
+
+let prices2 = [50, 120, 80, 200, 150];
+
+let expensivePrices = prices2.filter(function(price) {
+    return price > 100;
+});
+
+console.log(expensivePrices);
+
+
+// 4. Passed students
+
+let students = [
+    { name: "Ali", marks: 80 },
+    { name: "Ahmed", marks: 45 },
+    { name: "Usman", marks: 70 },
+    { name: "Rehan", marks: 30 }
+];
+
+let passedStudents = students.filter(function(student) {
+    return student.marks >= 50;
+});
+
+console.log(passedStudents);
+
+
+// 5. Negative numbers filter
+
+let numbers5 = [-5, 2, -3, 4, -1, 6];
+
+let negativeNumbers = numbers5.filter(function(num) {
+    return num < 0;
+});
+
+console.log(negativeNumbers);
+
+
+
+// ==========================================
+// forEach()
+// ==========================================
+
+// 1. Array elements console me print
+
+let fruits = ["Apple", "Banana", "Mango"];
+
+fruits.forEach(function(fruit) {
+    console.log(fruit);
+});
+
+
+// 2. Fruits numbering ke sath
+
+fruits.forEach(function(fruit, index) {
+    console.log((index + 1) + ". " + fruit);
+});
+
+
+// 3. Users ko welcome message
+
+let users = ["Ali", "Ahmed", "Usman"];
+
+users.forEach(function(user) {
+    console.log("Welcome " + user);
+});
+
+
+// 4. Total using forEach()
+
+let numbers6 = [10, 20, 30, 40];
+
+let total = 0;
+
+numbers6.forEach(function(num) {
+    total = total + num;
+});
+
+console.log(total);
+
+
+// 5. Student names uppercase me print
+
+let students2 = ["Ali", "Ahmed", "Usman"];
+
+students2.forEach(function(student) {
+    console.log(student.toUpperCase());
+});
+
+
+
+// ==========================================
+// find()
+// ==========================================
+
+// 1. First number greater than 25
+
+let numbers7 = [10, 20, 30, 40];
+
+let firstNumber = numbers7.find(function(num) {
+    return num > 25;
+});
+
+console.log(firstNumber);
+
+
+// 2. Ali user find karo
+
+let users2 = [
+    { name: "Ahmed", age: 20 },
+    { name: "Ali", age: 22 },
+    { name: "Usman", age: 21 }
+];
+
+let aliUser = users2.find(function(user) {
+    return user.name === "Ali";
+});
+
+console.log(aliUser);
+
+
+// 3. First expensive product
+
+let products = [
+    { name: "Pen", price: 50 },
+    { name: "Bag", price: 500 },
+    { name: "Book", price: 200 }
+];
+
+let expensiveProduct = products.find(function(product) {
+    return product.price > 300;
+});
+
+console.log(expensiveProduct);
+
+
+// 4. First even number
+
+let numbers8 = [3, 7, 9, 12, 14];
+
+let firstEven = numbers8.find(function(num) {
+    return num % 2 === 0;
+});
+
+console.log(firstEven);
+
+
+// 5. First failed student
+
+let students3 = [
+    { name: "Ali", marks: 80 },
+    { name: "Ahmed", marks: 35 },
+    { name: "Usman", marks: 60 }
+];
+
+let failedStudent = students3.find(function(student) {
+    return student.marks < 50;
+});
+
+console.log(failedStudent);
+
+
+
+// ==========================================
+// reduce()
+// ==========================================
+
+// 1. Sum
+
+let numbers9 = [1, 2, 3, 4];
+
+let sum = numbers9.reduce(function(total, num) {
+    return total + num;
+}, 0);
+
+console.log(sum);
+
+
+// 2. Prices total
+
+let prices3 = [100, 200, 300, 400];
+
+let priceTotal = prices3.reduce(function(total, price) {
+    return total + price;
+}, 0);
+
+console.log(priceTotal);
+
+
+// 3. Maximum value
+
+let numbers10 = [10, 50, 20, 80, 30];
+
+let maximum = numbers10.reduce(function(max, num) {
+    if (num > max) {
+        return num;
+    }
+
+    return max;
+}, numbers10[0]);
+
+console.log(maximum);
+
+
+// 4. Words ko sentence me convert
+
+let words = ["I", "am", "learning", "JavaScript"];
+
+let sentence = words.reduce(function(result, word) {
+    return result + " " + word;
+});
+
+console.log(sentence);
+
+
+// 5. Shopping cart total
+
+let cart = [
+    { name: "Shirt", price: 1000 },
+    { name: "Shoes", price: 2500 },
+    { name: "Cap", price: 500 }
+];
+
+let bill = cart.reduce(function(total, item) {
+    return total + item.price;
+}, 0);
+
+console.log(bill);
+
+
+
+// ==========================================
+// findLastIndex()
+// ==========================================
+
+// 1. Last 2 ka index
+
+let numbers11 = [1, 2, 3, 2, 4, 2];
+
+let lastTwo = numbers11.findLastIndex(function(num) {
+    return num === 2;
+});
+
+console.log(lastTwo);
+
+
+// 2. Last even number ka index
+
+let numbers12 = [1, 3, 4, 7, 8, 9];
+
+let lastEvenIndex = numbers12.findLastIndex(function(num) {
+    return num % 2 === 0;
+});
+
+console.log(lastEvenIndex);
+
+
+// 3. Last Ali ka index
+
+let names3 = ["Ali", "Ahmed", "Ali", "Usman", "Ali"];
+
+let lastAli = names3.findLastIndex(function(name) {
+    return name === "Ali";
+});
+
+console.log(lastAli);
+
+
+// 4. Last expensive product ka index
+
+let products2 = [
+    { name: "Pen", price: 50 },
+    { name: "Bag", price: 500 },
+    { name: "Laptop", price: 5000 },
+    { name: "Book", price: 100 }
+];
+
+let lastExpensive = products2.findLastIndex(function(product) {
+    return product.price > 300;
+});
+
+console.log(lastExpensive);
+
+
+// 5. Last negative number ka index
+
+let numbers13 = [5, -2, 8, -4, 10, -7];
+
+let lastNegative = numbers13.findLastIndex(function(num) {
+    return num < 0;
+});
+
+console.log(lastNegative);
+
+
+
+// ==========================================
+// OBJECTS
+// ==========================================
+
+// 1. Object kya hota hai?
+// Object data ko key aur value ki form me store karta hai.
+
+
+// 2. Student object
+
+let student = {
+    name: "Ali",
+    age: 20
+};
+
+console.log(student);
+
+
+// 3. Property access ke 2 methods
+
+console.log(student.name);
+console.log(student["age"]);
+
+
+// 4. New property add
+
+student.city = "Karachi";
+
+console.log(student);
+
+
+// 5. Property delete
+
+delete student.city;
+
+console.log(student);
+
+
+// 6. Car object
+
+let car = {
+    brand: "Toyota",
+    model: "Corolla"
+};
+
+console.log(car);
+
+
+// 7. Object ke andar function
+
+let person = {
+    name: "Ali",
+
+    sayHello: function() {
+        console.log("Hello");
+    }
+};
+
+person.sayHello();
+
+
+// 8. this keyword
+
+let user = {
+    name: "Ali",
+
+    showName: function() {
+        console.log(this.name);
+    }
+};
+
+user.showName();
+
+
+// 9. Object keys
+
+console.log(Object.keys(user));
+
+
+// 10. Object values
+
+console.log(Object.values(user));
+
+
+
+// ==========================================
+// NESTED OBJECTS
+// ==========================================
+
+// 1. Object ke andar object
+
+let userInfo = {
+    name: "Ali",
+
+    address: {
+        city: "Karachi",
+        country: "Pakistan"
+    }
+};
+
+console.log(userInfo);
+
+
+// 2. Address object
+
+let user2 = {
+    name: "Ahmed",
+
+    address: {
+        street: "Main Road",
+        city: "Karachi"
+    }
+};
+
+console.log(user2);
+
+
+// 3. City access
+
+console.log(user2.address.city);
+
+
+// 4. Student marks object
+
+let studentInfo = {
+    name: "Usman",
+
+    marks: {
+        english: 80,
+        math: 90,
+        computer: 85
+    }
+};
+
+console.log(studentInfo.marks.math);
+
+
+// 5. Company employee object
+
+let company = {
+    name: "ABC Company",
+
+    employee: {
+        name: "Ali",
+        age: 25,
+        position: "Developer"
+    }
+};
+
+console.log(company.employee.name);
+
+
+
+// ==========================================
+// ARRAY OF OBJECTS
+// ==========================================
+
+// 1. Array of objects kya hota hai?
+// Jab ek array ke andar multiple objects hon,
+// usay Array of Objects kehte hain.
+
+
+// 2. Students array
+
+let students4 = [
+    {
+        name: "Ali",
+        marks: 80
+    },
+
+    {
+        name: "Ahmed",
+        marks: 60
+    },
+
+    {
+        name: "Usman",
+        marks: 40
+    }
+];
+
+console.log(students4);
+
+
+// 3. Sirf names print
+
+students4.forEach(function(student) {
+    console.log(student.name);
+});
+
+
+// 4. Passed students
+
+let passed = students4.filter(function(student) {
+    return student.marks >= 50;
+});
+
+console.log(passed);
+
+
+// 5. Names uppercase using map()
+
+let upperStudentNames = students4.map(function(student) {
+    return student.name.toUpperCase();
+});
+
+console.log(upperStudentNames);
+
+
+// 6. Highest marks wala student
+
+let highestMarks = students4.reduce(function(highest, student) {
+
+    if (student.marks > highest.marks) {
+        return student;
+    }
+
+    return highest;
+
+});
+
+console.log(highestMarks);
+
+
+// 7. Products ka total stock
+
+let products3 = [
+    {
+        name: "Laptop",
+        stock: 5
+    },
+
+    {
+        name: "Mobile",
+        stock: 10
+    },
+
+    {
+        name: "Tablet",
+        stock: 7
+    }
+];
+
+let totalStock = products3.reduce(function(total, product) {
+    return total + product.stock;
+}, 0);
+
+console.log(totalStock);
+
+
+// 8. New object push
+
+students4.push({
+    name: "Rehan",
+    marks: 75
+});
+
+console.log(students4);
+
+
+// 9. User object find
+
+let users3 = [
+    {
+        name: "Ahmed",
+        age: 20
+    },
+
+    {
+        name: "Ali",
+        age: 22
+    },
+
+    {
+        name: "Usman",
+        age: 21
+    }
+];
+
+let findUser = users3.find(function(user) {
+    return user.name === "Ali";
+});
+
+console.log(findUser);
+
+
+// 10. Array of objects loop se print
+
+users3.forEach(function(user) {
+
+    console.log("Name: " + user.name);
+    console.log("Age: " + user.age);
+
+});
