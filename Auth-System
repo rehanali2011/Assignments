@@ -1,0 +1,776 @@
+APP>JSX
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+function App() {
+  return (
+    <Routes>
+
+      {/* Default Route */}
+      <Route path="/" element={<Navigate to="/login" />} />
+
+      {/* Login */}
+      <Route path="/login" element={<Login />} />
+
+      {/* Signup */}
+      <Route path="/signup" element={<Signup />} />
+
+      {/* Protected Dashboard */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Unknown URL */}
+      <Route path="*" element={<Navigate to="/login" />} />
+
+    </Routes>
+  );
+}
+
+export default App;
+
+MAIN.JSX
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+
+import App from "./App.jsx";
+import "./index.css";
+import "./App.css";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
+);
+
+
+DASHBORD.JSX
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+function Dashboard() {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const loggedInUser = JSON.parse(
+      localStorage.getItem("loggedInUser")
+    );
+
+    setUser(loggedInUser);
+
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+
+      const response = await axios.get(
+        "https://dummyjson.com/products?limit=8"
+      );
+
+      setProducts(response.data.products);
+    } catch (error) {
+      setError("Failed to load products.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+
+    navigate("/login");
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+
+      {/* Navbar */}
+      <nav className="bg-white shadow-sm">
+
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+
+          <h1 className="text-2xl font-bold text-blue-600">
+            My Dashboard
+          </h1>
+
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg"
+          >
+            Logout
+          </button>
+
+        </div>
+
+      </nav>
+
+      {/* Main */}
+      <main className="max-w-7xl mx-auto px-4 py-8">
+
+        {/* Welcome */}
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+
+          <h2 className="text-2xl font-bold text-gray-800">
+            Welcome, {user?.name}
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+            {user?.email}
+          </p>
+
+        </div>
+
+        {/* Products Heading */}
+        <div className="mb-6">
+
+          <h2 className="text-2xl font-bold text-gray-800">
+            Products
+          </h2>
+
+          <p className="text-gray-500">
+            Products fetched using Axios
+          </p>
+
+        </div>
+
+        {/* Loading */}
+        {loading && (
+          <div className="text-center py-10">
+            <p className="text-gray-600">
+              Loading products...
+            </p>
+          </div>
+        )}
+
+        {/* Error */}
+        {error && (
+          <div className="bg-red-100 text-red-600 p-4 rounded-lg">
+            {error}
+          </div>
+        )}
+
+        {/* Products */}
+        {!loading && !error && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            {products.map((product) => (
+
+              <div
+                key={product.id}
+                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition"
+              >
+
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="w-full h-48 object-cover"
+                />
+
+                <div className="p-5">
+
+                  <h3 className="font-bold text-lg text-gray-800 mb-2">
+                    {product.title}
+                  </h3>
+
+                  <p className="text-gray-500 text-sm mb-4 line-clamp-2">
+                    {product.description}
+                  </p>
+
+                  <div className="flex justify-between items-center">
+
+                    <span className="text-blue-600 font-bold">
+                      ${product.price}
+                    </span>
+
+                    <span className="text-sm text-gray-500">
+                      ⭐ {product.rating}
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+        )}
+
+      </main>
+
+    </div>
+  );
+}
+
+export default Dashboard;
+
+LOGIN.JSX
+
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+function Login() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setError("");
+
+    const savedUser = JSON.parse(
+      localStorage.getItem("user")
+    );
+
+    if (!savedUser) {
+      setError("No account found. Please signup first.");
+      return;
+    }
+
+    if (
+      savedUser.email !== formData.email ||
+      savedUser.password !== formData.password
+    ) {
+      setError("Invalid email or password.");
+      return;
+    }
+
+    localStorage.setItem(
+      "loggedInUser",
+      JSON.stringify(savedUser)
+    );
+
+    navigate("/dashboard");
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+
+      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          Welcome Back
+        </h1>
+
+        <p className="text-center text-gray-500 mb-6">
+          Login to your account
+        </p>
+
+        {error && (
+          <div className="bg-red-100 text-red-600 p-3 rounded-lg mb-4 text-sm">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+
+          {/* Email */}
+          <div className="mb-5">
+            <label className="block text-gray-700 mb-2">
+              Email
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="mb-6">
+            <label className="block text-gray-700 mb-2">
+              Password
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Login Button */}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
+          >
+            Login
+          </button>
+
+        </form>
+
+        <p className="text-center text-gray-600 mt-6">
+          Don't have an account?{" "}
+
+          <Link
+            to="/signup"
+            className="text-blue-600 font-semibold hover:underline"
+          >
+            Sign Up
+          </Link>
+        </p>
+
+      </div>
+
+    </div>
+  );
+}
+
+export default Login;
+
+SIGN UP.JSX
+
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+function Signup() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setError("");
+    setSuccess("");
+
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      setError("Please fill all fields.");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
+    const existingUser = JSON.parse(
+      localStorage.getItem("user")
+    );
+
+    if (
+      existingUser &&
+      existingUser.email === formData.email
+    ) {
+      setError("Email already exists.");
+      return;
+    }
+
+    const user = {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    };
+
+    localStorage.setItem("user", JSON.stringify(user));
+
+    setSuccess("Account created successfully!");
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+
+      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          Create Account
+        </h1>
+
+        <p className="text-center text-gray-500 mb-6">
+          Sign up to continue
+        </p>
+
+        {error && (
+          <div className="bg-red-100 text-red-600 p-3 rounded-lg mb-4 text-sm">
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="bg-green-100 text-green-600 p-3 rounded-lg mb-4 text-sm">
+            {success}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+
+          {/* Name */}
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2">
+              Full Name
+            </label>
+
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Enter your name"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2">
+              Email
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2">
+              Password
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter password"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Confirm Password */}
+          <div className="mb-6">
+            <label className="block text-gray-700 mb-2">
+              Confirm Password
+            </label>
+
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="Confirm password"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Button */}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
+          >
+            Sign Up
+          </button>
+
+        </form>
+
+        <p className="text-center text-gray-600 mt-6">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="text-blue-600 font-semibold hover:underline"
+          >
+            Login
+          </Link>
+        </p>
+
+      </div>
+
+    </div>
+  );
+}
+
+export default Signup;
+
+ProtectedRoute.jsx
+
+import { Navigate } from "react-router-dom";
+
+function ProtectedRoute({ children }) {
+  const user = localStorage.getItem("loggedInUser");
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+export default ProtectedRoute;
+
+APP.CSS
+
+.counter {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  margin-bottom: 24px;
+
+  &:hover {
+    border-color: var(--accent-border);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.hero {
+  position: relative;
+
+  .base,
+  .framework,
+  .vite {
+    inset-inline: 0;
+    margin: 0 auto;
+  }
+
+  .base {
+    width: 170px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .framework,
+  .vite {
+    position: absolute;
+  }
+
+  .framework {
+    z-index: 1;
+    top: 34px;
+    height: 28px;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+      scale(1.4);
+  }
+
+  .vite {
+    z-index: 0;
+    top: 107px;
+    height: 26px;
+    width: auto;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+      scale(0.8);
+  }
+}
+
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  place-content: center;
+  place-items: center;
+  flex-grow: 1;
+
+  @media (max-width: 1024px) {
+    padding: 32px 20px 24px;
+    gap: 18px;
+  }
+}
+
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+  text-align: left;
+
+  & > div {
+    flex: 1 1 0;
+    padding: 32px;
+    @media (max-width: 1024px) {
+      padding: 24px 20px;
+    }
+  }
+
+  .icon {
+    margin-bottom: 16px;
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+#docs {
+  border-right: 1px solid var(--border);
+
+  @media (max-width: 1024px) {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 0;
+
+  .logo {
+    height: 18px;
+  }
+
+  a {
+    color: var(--text-h);
+    font-size: 16px;
+    border-radius: 6px;
+    background: var(--social-bg);
+    display: flex;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+    .button-icon {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      flex: 1 1 calc(50% - 8px);
+    }
+
+    a {
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#spacer {
+  height: 88px;
+  border-top: 1px solid var(--border);
+  @media (max-width: 1024px) {
+    height: 48px;
+  }
+}
+
+.ticks {
+  position: relative;
+  width: 100%;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    border: 5px solid transparent;
+  }
+
+  &::before {
+    left: 0;
+    border-left-color: var(--border);
+  }
+  &::after {
+    right: 0;
+    border-right-color: var(--border);
+  }
+}
+
+
+INDEX.CSS
+
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f3f4f6;
+}
