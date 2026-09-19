@@ -1,0 +1,542 @@
+main.jsx
+
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
+import App from "./App.jsx";
+import "./index.css";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+
+App.jsx
+
+import { useState } from "react";
+import Counter from "./components/Counter";
+import Profile from "./components/Profile";
+import ThemeBox from "./components/ThemeBox";
+import Todo from "./components/Todo";
+
+import "./App.css";
+
+function App() {
+  // STATE MANAGEMENT
+  const [studentName, setStudentName] = useState("Student");
+
+  const [score, setScore] = useState(0);
+
+  const changeStudentName = () => {
+    setStudentName("React Student");
+  };
+
+  const increaseScore = () => {
+    setScore(score + 1);
+  };
+
+  return (
+    <div className="app">
+
+      <header className="header">
+        <h1>React State Practice</h1>
+
+        <p>
+          Learning State, Events and Re-rendering
+        </p>
+      </header>
+
+      <main className="container">
+
+        {/* STATE */}
+        <section className="box">
+          <h2>1. What is State?</h2>
+
+          <p>
+            State is data that can change inside a React component.
+          </p>
+
+          <div className="result">
+            Student Name: <strong>{studentName}</strong>
+          </div>
+
+          <button onClick={changeStudentName}>
+            Change Name
+          </button>
+        </section>
+
+        {/* STATE MANAGEMENT */}
+        <section className="box">
+          <h2>2. State Management</h2>
+
+          <p>
+            State management means controlling and updating
+            data used by components.
+          </p>
+
+          <div className="score">
+            Score: {score}
+          </div>
+
+          <button onClick={increaseScore}>
+            Increase Score
+          </button>
+        </section>
+
+        {/* COMPONENT STATE */}
+        <section className="box">
+          <h2>3. Component State</h2>
+
+          <Counter />
+        </section>
+
+        {/* EVENTS */}
+        <section className="box">
+          <h2>4. Event Handling</h2>
+
+          <Profile />
+        </section>
+
+        {/* RE-RENDER */}
+        <section className="box">
+          <h2>5. When Does Component Re-render?</h2>
+
+          <ThemeBox />
+        </section>
+
+        {/* PRACTICE */}
+        <section className="box">
+          <h2>6. State Management Practice</h2>
+
+          <Todo />
+        </section>
+
+      </main>
+
+    </div>
+  );
+}
+
+export default App;
+
+Counter.jsx
+
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increase = () => {
+    setCount(count + 1);
+  };
+
+  const decrease = () => {
+    setCount(count - 1);
+  };
+
+  const reset = () => {
+    setCount(0);
+  };
+
+  return (
+    <div className="component-box">
+
+      <h3>Counter Component</h3>
+
+      <div className="counter-number">
+        {count}
+      </div>
+
+      <div className="button-group">
+
+        <button onClick={decrease}>
+          −
+        </button>
+
+        <button onClick={reset}>
+          Reset
+        </button>
+
+        <button onClick={increase}>
+          +
+        </button>
+
+      </div>
+
+      <p>
+        Every time the state changes, this component
+        renders again with the new value.
+      </p>
+
+    </div>
+  );
+}
+
+export default Counter;
+
+Profile.jsx
+
+import { useState } from "react";
+
+function Profile() {
+  const [name, setName] = useState("");
+
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    alert(`Hello ${name}`);
+  };
+
+  return (
+    <div className="component-box">
+
+      <form onSubmit={handleSubmit}>
+
+        <label>
+          Enter Your Name
+        </label>
+
+        <input
+          type="text"
+          value={name}
+          onChange={handleChange}
+          placeholder="Enter name"
+        />
+
+        <button type="submit">
+          Submit
+        </button>
+
+      </form>
+
+      {name && (
+        <p className="live-text">
+          You are typing: {name}
+        </p>
+      )}
+
+    </div>
+  );
+}
+
+export default Profile;
+
+ThemeBox.jsx
+
+import { useState } from "react";
+
+function ThemeBox() {
+  const [dark, setDark] = useState(false);
+
+  const changeTheme = () => {
+    setDark(!dark);
+  };
+
+  return (
+    <div
+      className={dark ? "theme dark" : "theme light"}
+    >
+
+      <h3>
+        {dark ? "Dark Mode" : "Light Mode"}
+      </h3>
+
+      <p>
+        Current theme:
+        {" "}
+        {dark ? "Dark" : "Light"}
+      </p>
+
+      <button onClick={changeTheme}>
+        Change Theme
+      </button>
+
+    </div>
+  );
+}
+
+export default ThemeBox;
+
+Todo.jsx
+
+import { useState } from "react";
+
+function Todo() {
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  const handleInput = (event) => {
+    setTask(event.target.value);
+  };
+
+  const addTask = () => {
+    if (task.trim() === "") {
+      return;
+    }
+
+    setTasks([...tasks, task]);
+
+    setTask("");
+  };
+
+  const removeTask = (index) => {
+    const updatedTasks = tasks.filter(
+      (_, taskIndex) => taskIndex !== index
+    );
+
+    setTasks(updatedTasks);
+  };
+
+  return (
+    <div className="component-box">
+
+      <div className="todo-input">
+
+        <input
+          type="text"
+          value={task}
+          onChange={handleInput}
+          placeholder="Write a task"
+        />
+
+        <button onClick={addTask}>
+          Add
+        </button>
+
+      </div>
+
+      <div className="task-list">
+
+        {tasks.length === 0 ? (
+          <p>No tasks added yet.</p>
+        ) : (
+          tasks.map((item, index) => (
+            <div
+              className="task"
+              key={index}
+            >
+              <span>{item}</span>
+
+              <button
+                onClick={() => removeTask(index)}
+              >
+                Delete
+              </button>
+            </div>
+          ))
+        )}
+
+      </div>
+
+    </div>
+  );
+}
+
+export default Todo;
+
+App.css
+
+.app {
+  min-height: 100vh;
+}
+
+.header {
+  background: #1e40af;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.header h1 {
+  margin: 0 0 10px;
+  font-size: 36px;
+}
+
+.header p {
+  margin: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
+}
+
+.box {
+  background: white;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.box h2 {
+  margin-top: 0;
+  color: #1e3a8a;
+}
+
+.box p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.result {
+  background: #eff6ff;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+}
+
+.score {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.component-box {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.counter-number {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px;
+}
+
+.button-group {
+  text-align: center;
+}
+
+.button-group button {
+  min-width: 70px;
+}
+
+.component-box label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.component-box input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.live-text {
+  background: #ecfdf5;
+  padding: 10px;
+  border-radius: 7px;
+}
+
+.theme {
+  padding: 25px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.theme.light {
+  background: #f8fafc;
+  color: #111827;
+}
+
+.theme.dark {
+  background: #1f2937;
+  color: white;
+}
+
+.theme.dark p {
+  color: #ddd;
+}
+
+.todo-input {
+  display: flex;
+  gap: 10px;
+}
+
+.todo-input input {
+  margin: 0;
+}
+
+.task-list {
+  margin-top: 20px;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 7px;
+}
+
+.task button {
+  margin: 0;
+  background: #dc2626;
+}
+
+.task button:hover {
+  background: #b91c1c;
+}
+
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 28px;
+  }
+
+  .container {
+    width: 94%;
+  }
+
+  .todo-input {
+    flex-direction: column;
+  }
+
+  .task {
+    gap: 10px;
+  }
+}
+
+
+index.css
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+}
