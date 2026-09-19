@@ -1,0 +1,414 @@
+App.jsx
+
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+
+import ProtectedRoute from "./components/ProtectedRoute";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" element={<Navigate to="/login" />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/signup" element={<Signup />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+ProtectedRoute.jsx
+
+import { Navigate } from "react-router-dom";
+
+function ProtectedRoute({ children }) {
+  const user = localStorage.getItem("loggedInUser");
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
+}
+
+export default ProtectedRoute;
+
+Signup.jsx
+
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+function Signup() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.password) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    localStorage.setItem("user", JSON.stringify(formData));
+
+    alert("Signup successful!");
+
+    navigate("/login");
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+
+      <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg">
+
+        <h1 className="text-3xl font-bold text-center mb-2">
+          Create Account
+        </h1>
+
+        <p className="text-gray-500 text-center mb-6">
+          Sign up to continue
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
+          >
+            Sign Up
+          </button>
+
+        </form>
+
+        <p className="text-center mt-5 text-gray-600">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="text-blue-600 font-semibold"
+          >
+            Login
+          </Link>
+        </p>
+
+      </div>
+
+    </div>
+  );
+}
+
+export default Signup;
+
+Login.jsx
+
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+function Login() {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (!savedUser) {
+      alert("No account found. Please signup first.");
+      return;
+    }
+
+    if (
+      email === savedUser.email &&
+      password === savedUser.password
+    ) {
+      localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify(savedUser)
+      );
+
+      navigate("/dashboard");
+    } else {
+      alert("Invalid email or password");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+
+      <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg">
+
+        <h1 className="text-3xl font-bold text-center mb-2">
+          Welcome Back
+        </h1>
+
+        <p className="text-gray-500 text-center mb-6">
+          Login to your account
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
+          >
+            Login
+          </button>
+
+        </form>
+
+        <p className="text-center mt-5 text-gray-600">
+          Don't have an account?{" "}
+          <Link
+            to="/signup"
+            className="text-blue-600 font-semibold"
+          >
+            Signup
+          </Link>
+        </p>
+
+      </div>
+
+    </div>
+  );
+}
+
+export default Login;
+
+Dashboard.jsx
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+function Dashboard() {
+  const navigate = useNavigate();
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await axios.get(
+          "https://dummyjson.com/products?limit=8"
+        );
+
+        setProducts(response.data.products);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getProducts();
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+    navigate("/login");
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+
+      <nav className="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+
+        <h1 className="text-2xl font-bold">
+          Dashboard
+        </h1>
+
+        <button
+          onClick={handleLogout}
+          className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold"
+        >
+          Logout
+        </button>
+
+      </nav>
+
+      <main className="max-w-6xl mx-auto p-6">
+
+        <div className="bg-white rounded-xl shadow p-6 mb-6">
+
+          <h2 className="text-2xl font-bold">
+            Welcome, {user?.name}
+          </h2>
+
+          <p className="text-gray-500 mt-1">
+            {user?.email}
+          </p>
+
+        </div>
+
+        <h2 className="text-2xl font-bold mb-5">
+          Products
+        </h2>
+
+        {loading ? (
+          <p className="text-center text-lg">
+            Loading...
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+            {products.map((product) => (
+
+              <div
+                key={product.id}
+                className="bg-white rounded-xl shadow overflow-hidden"
+              >
+
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="w-full h-48 object-cover"
+                />
+
+                <div className="p-4">
+
+                  <h3 className="font-bold text-lg">
+                    {product.title}
+                  </h3>
+
+                  <p className="text-gray-500 text-sm mt-2">
+                    {product.description.slice(0, 70)}...
+                  </p>
+
+                  <p className="text-blue-600 font-bold text-xl mt-3">
+                    ${product.price}
+                  </p>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+        )}
+
+      </main>
+
+    </div>
+  );
+}
+
+export default Dashboard;
+
+
+main.jsx
+
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
+import App from "./App.jsx";
+import "./index.css";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+
+index.css
+
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+vite.config.js
+
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});
+
