@@ -1,1 +1,377 @@
+01-variables.ts
+
+let studentName: string = "Rehan";
+let studentAge: number = 18;
+let isStudent: boolean = true;
+
+let subjects: string[] = ["HTML", "CSS", "TypeScript"];
+
+console.log("Student Name:", studentName);
+console.log("Student Age:", studentAge);
+console.log("Is Student:", isStudent);
+console.log("Subjects:", subjects);
+
+let marks: number = 85;
+console.log("Marks:", marks);
+
+
+02-arrays-tuples.ts
+
+let fruits: string[] = ["Apple", "Mango", "Banana"];
+
+fruits.push("Orange");
+
+console.log("Fruits:", fruits);
+
+let student: [string, number, boolean] = [
+  "Ali",
+  20,
+  true
+];
+
+console.log("Student Name:", student[0]);
+console.log("Student Age:", student[1]);
+console.log("Enrolled:", student[2]);
+
+let numbers: number[] = [10, 20, 30, 40];
+
+numbers.forEach((number) => {
+  console.log(number);
+});
+
+src/03-functions.ts
+
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+function isAdult(age: number): boolean {
+  return age >= 18;
+}
+
+function printMessage(message: string): void {
+  console.log(message);
+}
+
+console.log(greet("Rehan"));
+console.log("Sum:", add(10, 20));
+console.log("Is Adult:", isAdult(20));
+
+printMessage("TypeScript function practice");
+
+src/04-objects-types.ts
+
+type Student = {
+  id: number;
+  name: string;
+  age: number;
+  course: string;
+};
+
+let studentOne: Student = {
+  id: 1,
+  name: "Ahmed",
+  age: 19,
+  course: "TypeScript"
+};
+
+let studentTwo: Student = {
+  id: 2,
+  name: "Sara",
+  age: 20,
+  course: "Web Development"
+};
+
+console.log("First Student:", studentOne);
+console.log("Second Student:", studentTwo);
+console.log("Student Name:", studentOne.name);
+console.log("Course:", studentTwo.course);
+
+src/05-interfaces.ts
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  inStock: boolean;
+}
+
+const productOne: Product = {
+  id: 101,
+  name: "Keyboard",
+  price: 2500,
+  inStock: true
+};
+
+const productTwo: Product = {
+  id: 102,
+  name: "Mouse",
+  price: 1200,
+  inStock: false
+};
+
+function showProduct(product: Product): void {
+  console.log("Product:", product.name);
+  console.log("Price:", product.price);
+  console.log("Available:", product.inStock);
+}
+
+showProduct(productOne);
+showProduct(productTwo);
+
+src/06-union-types.ts
+
+let userId: string | number;
+
+userId = 101;
+console.log("User ID:", userId);
+
+userId = "USER-202";
+console.log("User ID:", userId);
+
+type Status = "pending" | "completed" | "cancelled";
+
+function updateStatus(status: Status): void {
+  console.log("Current Status:", status);
+}
+
+updateStatus("pending");
+updateStatus("completed");
+
+function printId(id: string | number): void {
+  console.log("ID:", id);
+}
+
+printId(25);
+printId("ABC-25");
+
+src/07-enums.ts
+
+enum OrderStatus {
+  Pending = "PENDING",
+  Processing = "PROCESSING",
+  Delivered = "DELIVERED",
+  Cancelled = "CANCELLED"
+}
+
+let currentOrder: OrderStatus = OrderStatus.Processing;
+
+console.log("Current Order:", currentOrder);
+
+function showOrderStatus(status: OrderStatus): void {
+  console.log("Order Status:", status);
+}
+
+showOrderStatus(OrderStatus.Pending);
+showOrderStatus(OrderStatus.Delivered);
+showOrderStatus(OrderStatus.Cancelled);
+
+src/08-classes.ts
+
+class Car {
+  brand: string;
+  model: string;
+  year: number;
+
+  constructor(brand: string, model: string, year: number) {
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
+  }
+
+  displayInfo(): void {
+    console.log("Brand:", this.brand);
+    console.log("Model:", this.model);
+    console.log("Year:", this.year);
+  }
+}
+
+const carOne = new Car("Toyota", "Corolla", 2024);
+const carTwo = new Car("Honda", "Civic", 2023);
+
+carOne.displayInfo();
+carTwo.displayInfo();
+
+src/09-inheritance.ts
+
+class Animal {
+  constructor(public name: string) {}
+
+  eat(): void {
+    console.log(`${this.name} is eating.`);
+  }
+}
+
+class Dog extends Animal {
+  constructor(name: string, public breed: string) {
+    super(name);
+  }
+
+  bark(): void {
+    console.log(`${this.name} is barking.`);
+  }
+
+  showBreed(): void {
+    console.log("Breed:", this.breed);
+  }
+}
+
+const dogOne = new Dog("Tommy", "German Shepherd");
+
+dogOne.eat();
+dogOne.bark();
+dogOne.showBreed();
+
+src/10-generics.ts
+
+
+function displayValue<T>(value: T): T {
+  console.log("Value:", value);
+  return value;
+}
+
+displayValue<string>("Hello TypeScript");
+displayValue<number>(100);
+displayValue<boolean>(true);
+
+function getFirstItem<T>(items: T[]): T | undefined {
+  return items[0];
+}
+
+const firstFruit = getFirstItem<string>([
+  "Apple",
+  "Mango",
+  "Orange"
+]);
+
+const firstNumber = getFirstItem<number>([
+  10,
+  20,
+  30
+]);
+
+console.log("First Fruit:", firstFruit);
+console.log("First Number:", firstNumber);
+
+src/11-type-narrowing.ts
+
+
+function printValue(value: string | number): void {
+  if (typeof value === "string") {
+    console.log("String Value:", value.toUpperCase());
+  } else {
+    console.log("Number Value:", value.toFixed(2));
+  }
+}
+
+printValue("typescript");
+printValue(25.567);
+
+type Admin = {
+  role: "admin";
+  permissions: string[];
+};
+
+type Customer = {
+  role: "customer";
+  email: string;
+};
+
+type User = Admin | Customer;
+
+function showUser(user: User): void {
+  if (user.role === "admin") {
+    console.log("Permissions:", user.permissions);
+  } else {
+    console.log("Email:", user.email);
+  }
+}
+
+showUser({
+  role: "admin",
+  permissions: ["read", "write", "update"]
+});
+
+showUser({
+  role: "customer",
+  email: "customer@example.com"
+});
+
+src/12-practice.ts
+
+interface StudentRecord {
+  id: number;
+  name: string;
+  marks: number;
+  course: string;
+}
+
+const students: StudentRecord[] = [
+  {
+    id: 1,
+    name: "Ali",
+    marks: 85,
+    course: "TypeScript"
+  },
+  {
+    id: 2,
+    name: "Sara",
+    marks: 92,
+    course: "React"
+  },
+  {
+    id: 3,
+    name: "Ahmed",
+    marks: 45,
+    course: "JavaScript"
+  },
+  {
+    id: 4,
+    name: "Ayesha",
+    marks: 76,
+    course: "TypeScript"
+  }
+];
+
+function displayStudents(list: StudentRecord[]): void {
+  list.forEach((student) => {
+    console.log(
+      `${student.name} - ${student.course} - Marks: ${student.marks}`
+    );
+  });
+}
+
+function findStudent(id: number): StudentRecord | undefined {
+  return students.find((student) => student.id === id);
+}
+
+function getPassedStudents(): StudentRecord[] {
+  return students.filter((student) => student.marks >= 50);
+}
+
+function calculateAverage(): number {
+  const total = students.reduce(
+    (sum, student) => sum + student.marks,
+    0
+  );
+
+  return total / students.length;
+}
+
+console.log("All Students:");
+displayStudents(students);
+
+console.log("Student with ID 2:");
+console.log(findStudent(2));
+
+console.log("Passed Students:");
+displayStudents(getPassedStudents());
+
+console.log("Average Marks:", calculateAverage());
+
+
 
